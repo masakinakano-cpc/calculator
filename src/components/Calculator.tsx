@@ -8,6 +8,37 @@ import { BlockType } from '../types';
 import { validateFormula } from '../engine/parser';
 import { calculateFormula } from '../engine/calculator';
 
+/**
+ * Format display number with thousands separator
+ */
+function formatDisplayNumber(value: string): string {
+  // 入力中（末尾がドットや演算子の場合）はフォーマットしない
+  if (value.endsWith('.') || value === '' || value === '-') {
+    return value;
+  }
+
+  // 数値に変換できない場合はそのまま返す
+  const num = parseFloat(value);
+  if (isNaN(num)) {
+    return value;
+  }
+
+  // 小数点がある場合は分割
+  const parts = value.split('.');
+  const integerPart = parts[0];
+  const decimalPart = parts[1];
+
+  // 整数部分に3桁カンマ区切りを追加
+  const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+  // 小数部分がある場合は結合
+  if (decimalPart !== undefined) {
+    return formattedInteger + '.' + decimalPart;
+  }
+
+  return formattedInteger;
+}
+
 interface CalculatorProps {
   mode: BlockType;
   onCreateBlock: (formula: string) => void;
@@ -265,7 +296,7 @@ export function Calculator({ mode, onCreateBlock, blockValues }: CalculatorProps
           </div>
         )}
         <div className="calculator-formula">{input || '\u00A0'}</div>
-        <div className="calculator-value">{display}</div>
+        <div className="calculator-value">{formatDisplayNumber(display)}</div>
         {error && (
           <div style={{ fontSize: '0.875rem', color: 'var(--accent-red)' }}>
             {error}

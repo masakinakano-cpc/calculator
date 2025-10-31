@@ -69,7 +69,7 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1 className="app-title">けいさんノート</h1>
+        <h1 className="app-title">電卓ver2</h1>
 
         <div className="mode-selector">
           <button
