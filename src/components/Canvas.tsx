@@ -13,6 +13,7 @@ interface CanvasProps {
   onUpdateBlockPosition: (blockId: string, x: number, y: number) => void;
   onUpdateBlockMemo: (blockId: string, memo: string) => void;
   onDeleteBlock: (blockId: string) => void;
+  onCondenseAll: () => void;
   settings: UserSettings | null;
 }
 
@@ -21,6 +22,7 @@ export function Canvas({
   onUpdateBlockPosition,
   onUpdateBlockMemo,
   onDeleteBlock,
+  onCondenseAll,
   settings,
 }: CanvasProps) {
   const [selectedBlockIds, setSelectedBlockIds] = useState<Set<string>>(new Set());
@@ -190,6 +192,17 @@ export function Canvas({
 
   return (
     <div className="canvas-container" onClick={handleCanvasClick}>
+      {/* 凝縮ボタン - 常に表示 */}
+      {blocks.length > 0 && (
+        <button
+          className="condense-btn"
+          onClick={onCondenseAll}
+          title="ぜんぶのマグネットをまとめる"
+        >
+          ✕✕
+        </button>
+      )}
+
       {/* ツールバー */}
       {selectedBlockIds.size > 0 && (
         <div className="canvas-toolbar">

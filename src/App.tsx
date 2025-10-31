@@ -58,6 +58,27 @@ function App() {
     [deleteBlock]
   );
 
+  const handleCondenseAll = useCallback(async () => {
+    if (blocks.length === 0) {
+      alert('マグネットがありません');
+      return;
+    }
+
+    // すべてのブロックの値を合計
+    const sum = blocks.reduce((acc, block) => {
+      const value = parseFloat(block.value);
+      return acc + (isNaN(value) ? 0 : value);
+    }, 0);
+
+    // 合計式を作成
+    const formula = blocks.map(b => b.value).join('+');
+
+    // 新しいブロックを作成
+    await handleCreateBlock(formula);
+
+    alert(`${blocks.length}このマグネットをまとめました！ごうけい: ${sum}`);
+  }, [blocks, handleCreateBlock]);
+
   if (blocksLoading || settingsLoading) {
     return (
       <div className="app">
@@ -203,6 +224,7 @@ function App() {
           onUpdateBlockPosition={updateBlockPosition}
           onUpdateBlockMemo={updateBlockMemo}
           onDeleteBlock={handleDeleteBlock}
+          onCondenseAll={handleCondenseAll}
           settings={settings}
         />
       </main>
