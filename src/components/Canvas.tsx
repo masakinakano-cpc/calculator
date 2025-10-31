@@ -199,7 +199,18 @@ export function Canvas({
           onClick={onCondenseAll}
           title="ぜんぶのマグネットをまとめる"
         >
-          ✕✕
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* 上から下 */}
+            <path d="M12 3 L12 9 M9 7 L12 9 L15 7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            {/* 下から上 */}
+            <path d="M12 21 L12 15 M9 17 L12 15 L15 17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            {/* 左から右 */}
+            <path d="M3 12 L9 12 M7 9 L9 12 L7 15" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            {/* 右から左 */}
+            <path d="M21 12 L15 12 M17 9 L15 12 L17 15" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            {/* 中心の円 */}
+            <circle cx="12" cy="12" r="2" fill="white"/>
+          </svg>
         </button>
       )}
 
