@@ -86,8 +86,20 @@ export function BlocklyPlayground({ onCreateBlock }: BlocklyPlaygroundProps) {
 
     workspaceRef.current = workspace;
 
+    // Force resize after a short delay to ensure proper rendering
+    const resizeWorkspace = () => {
+      Blockly.svgResize(workspace);
+    };
+
+    // Initial resize
+    setTimeout(resizeWorkspace, 100);
+
+    // Add window resize listener
+    window.addEventListener('resize', resizeWorkspace);
+
     // Cleanup on unmount
     return () => {
+      window.removeEventListener('resize', resizeWorkspace);
       workspace.dispose();
     };
   }, []);
