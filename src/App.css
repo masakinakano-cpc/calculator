@@ -1612,7 +1612,7 @@ body {
 }
 
 .zodiac-result {
-  min-height: 50px;
+  min-height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1620,22 +1620,22 @@ body {
 
 .zodiac-info {
   text-align: center;
-  padding: 0.5rem;
+  padding: 0.4rem;
   background: linear-gradient(135deg, rgba(199, 184, 234, 0.2) 0%, rgba(181, 167, 217, 0.2) 100%);
-  border-radius: 0.5rem;
+  border-radius: 0.4rem;
   border: 2px solid var(--magnet-purple);
 }
 
 .zodiac-display {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 800;
   color: var(--chalk-white);
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.25rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .age-display {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: var(--chalk-yellow);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
@@ -1644,9 +1644,9 @@ body {
 /* 干支の円盤 */
 .zodiac-wheel-container {
   position: relative;
-  width: 230px;
-  height: 230px;
-  margin: 0.4rem auto;
+  width: 200px;
+  height: 200px;
+  margin: 0.3rem auto;
 }
 
 .zodiac-wheel-image {
@@ -1666,12 +1666,12 @@ body {
 
 .zodiac-wheel-btn {
   position: absolute;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   background: rgba(255, 255, 255, 0.9);
   border: 2px solid var(--magnet-purple);
   border-radius: 50%;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -1691,79 +1691,95 @@ body {
   transform: scale(1.0);
 }
 
-/* 12時位置から時計回りに配置 (半径90px、円盤230pxに対応) */
+/* 12時位置から時計回りに配置 (半径78px、円盤200pxに対応) */
 .zodiac-rat {
-  top: 4px;
+  top: 3px;
   left: 50%;
   transform: translateX(-50%);
 }
 
+.zodiac-rat:hover {
+  transform: translateX(-50%) scale(1.1);
+}
+
 .zodiac-ox {
-  top: 17px;
-  right: 38px;
+  top: 15px;
+  right: 33px;
 }
 
 .zodiac-tiger {
-  top: 51px;
-  right: 13px;
+  top: 44px;
+  right: 11px;
 }
 
 .zodiac-rabbit {
   top: 50%;
-  right: 4px;
+  right: 3px;
   transform: translateY(-50%);
 }
 
+.zodiac-rabbit:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
 .zodiac-dragon {
-  bottom: 51px;
-  right: 13px;
+  bottom: 44px;
+  right: 11px;
 }
 
 .zodiac-snake {
-  bottom: 17px;
-  right: 38px;
+  bottom: 15px;
+  right: 33px;
 }
 
 .zodiac-horse {
-  bottom: 4px;
+  bottom: 3px;
   left: 50%;
   transform: translateX(-50%);
 }
 
+.zodiac-horse:hover {
+  transform: translateX(-50%) scale(1.1);
+}
+
 .zodiac-sheep {
-  bottom: 17px;
-  left: 38px;
+  bottom: 15px;
+  left: 33px;
 }
 
 .zodiac-monkey {
-  bottom: 51px;
-  left: 13px;
+  bottom: 44px;
+  left: 11px;
 }
 
 .zodiac-rooster {
   top: 50%;
-  left: 4px;
+  left: 3px;
   transform: translateY(-50%);
 }
 
+.zodiac-rooster:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
 .zodiac-dog {
-  top: 51px;
-  left: 13px;
+  top: 44px;
+  left: 11px;
 }
 
 .zodiac-pig {
-  top: 17px;
-  left: 38px;
+  top: 15px;
+  left: 33px;
 }
 
 /* 干支の年リスト */
 .zodiac-years-list {
   background: linear-gradient(135deg, rgba(199, 184, 234, 0.15) 0%, rgba(181, 167, 217, 0.15) 100%);
   border: 2px solid var(--magnet-purple);
-  border-radius: 0.75rem;
-  padding: 0.75rem;
-  margin: 0.4rem 0;
-  max-height: 220px;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  margin: 0.3rem 0;
+  max-height: 180px;
   overflow-y: auto;
 }
 
@@ -1807,15 +1823,15 @@ body {
 
 .zodiac-years-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+  gap: 0.4rem;
 }
 
 .zodiac-year-item {
   background: rgba(255, 255, 255, 0.95);
   border: 2px solid var(--magnet-purple);
-  border-radius: 0.5rem;
-  padding: 0.5rem;
+  border-radius: 0.4rem;
+  padding: 0.4rem;
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: "M PLUS Rounded 1c", sans-serif;
