@@ -1516,3 +1516,332 @@ body {
     font-size: 1.25rem;
   }
 }
+
+/* ========================================
+   専門計算モード (Zodiac, Date, Unit)
+   ======================================== */
+
+/* 干支計算モード */
+.zodiac-calculator {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.zodiac-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0.3rem 0;
+}
+
+.zodiac-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--chalk-white);
+}
+
+.zodiac-year-input {
+  padding: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  border: 3px solid var(--wood-brown);
+  border-radius: 0.5rem;
+  background: var(--chalk-white);
+  color: #333;
+  text-align: center;
+}
+
+.zodiac-year-input:focus {
+  outline: none;
+  border-color: var(--magnet-purple);
+  box-shadow: 0 0 0 3px rgba(199, 184, 234, 0.3);
+}
+
+.zodiac-calculate-btn {
+  padding: 0.7rem;
+  font-size: 0.88rem;
+  font-weight: 800;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  background: linear-gradient(135deg, var(--magnet-purple) 0%, #b5a7d9 100%);
+  color: white;
+  border: 2px solid var(--wood-brown);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.zodiac-calculate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.zodiac-calculate-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.zodiac-help {
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.4rem;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  margin-top: 0.5rem;
+}
+
+.zodiac-year-select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  border: 2px solid var(--wood-brown);
+  border-radius: 0.5rem;
+  background: var(--chalk-white);
+  color: #333;
+  text-align: center;
+  cursor: pointer;
+}
+
+.zodiac-year-select:focus {
+  outline: none;
+  border-color: var(--magnet-purple);
+  box-shadow: 0 0 0 2px rgba(199, 184, 234, 0.3);
+}
+
+.zodiac-result {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zodiac-info {
+  text-align: center;
+  padding: 0.5rem;
+  background: linear-gradient(135deg, rgba(199, 184, 234, 0.2) 0%, rgba(181, 167, 217, 0.2) 100%);
+  border-radius: 0.5rem;
+  border: 2px solid var(--magnet-purple);
+}
+
+.zodiac-display {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--chalk-white);
+  margin-bottom: 0.35rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.age-display {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--chalk-yellow);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* 干支の円盤 */
+.zodiac-wheel-container {
+  position: relative;
+  width: 230px;
+  height: 230px;
+  margin: 0.4rem auto;
+}
+
+.zodiac-wheel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.zodiac-wheel-buttons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.zodiac-wheel-btn {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--magnet-purple);
+  border-radius: 50%;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.zodiac-wheel-btn:hover {
+  transform: scale(1.1);
+  border-color: rgba(199, 184, 234, 1);
+  box-shadow: 0 0 12px rgba(199, 184, 234, 0.8);
+  z-index: 10;
+}
+
+.zodiac-wheel-btn:active {
+  transform: scale(1.0);
+}
+
+/* 12時位置から時計回りに配置 (半径90px、円盤230pxに対応) */
+.zodiac-rat {
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.zodiac-ox {
+  top: 17px;
+  right: 38px;
+}
+
+.zodiac-tiger {
+  top: 51px;
+  right: 13px;
+}
+
+.zodiac-rabbit {
+  top: 50%;
+  right: 4px;
+  transform: translateY(-50%);
+}
+
+.zodiac-dragon {
+  bottom: 51px;
+  right: 13px;
+}
+
+.zodiac-snake {
+  bottom: 17px;
+  right: 38px;
+}
+
+.zodiac-horse {
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.zodiac-sheep {
+  bottom: 17px;
+  left: 38px;
+}
+
+.zodiac-monkey {
+  bottom: 51px;
+  left: 13px;
+}
+
+.zodiac-rooster {
+  top: 50%;
+  left: 4px;
+  transform: translateY(-50%);
+}
+
+.zodiac-dog {
+  top: 51px;
+  left: 13px;
+}
+
+.zodiac-pig {
+  top: 17px;
+  left: 38px;
+}
+
+/* 干支の年リスト */
+.zodiac-years-list {
+  background: linear-gradient(135deg, rgba(199, 184, 234, 0.15) 0%, rgba(181, 167, 217, 0.15) 100%);
+  border: 2px solid var(--magnet-purple);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  margin: 0.4rem 0;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.zodiac-years-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--magnet-purple);
+}
+
+.zodiac-years-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--chalk-white);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.zodiac-close-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--wood-brown);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.zodiac-close-btn:hover {
+  background: var(--magnet-red);
+  color: white;
+  transform: scale(1.1);
+}
+
+.zodiac-years-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 0.5rem;
+}
+
+.zodiac-year-item {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid var(--magnet-purple);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  text-align: center;
+}
+
+.zodiac-year-item:hover {
+  background: rgba(199, 184, 234, 0.95);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(199, 184, 234, 0.6);
+}
+
+.zodiac-year-item:active {
+  transform: translateY(-1px);
+}
+
+.year-text {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--wood-brown);
+  margin-bottom: 0.15rem;
+}
+
+.age-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--magnet-purple);
+}
+

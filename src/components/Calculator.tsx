@@ -7,6 +7,15 @@ import { useState, useEffect, useRef } from 'react';
 import { BlockType } from '../types';
 import { validateFormula } from '../engine/parser';
 import { calculateFormula } from '../engine/calculator';
+import {
+  getZodiacFromYear,
+  getZodiacDisplayString,
+  calculateAge,
+  getAllYearsForZodiac,
+  ZODIAC_EMOJI,
+  ZODIAC_NAMES_JA,
+} from '../utils/zodiacCalculator';
+import { Zodiac } from '../types';
 
 /**
  * Format display number with thousands separator
@@ -51,6 +60,7 @@ export function Calculator({ mode, onCreateBlock, blockValues }: CalculatorProps
   const [error, setError] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const [waitingForOperand, setWaitingForOperand] = useState(false);
+  const [selectedZodiac, setSelectedZodiac] = useState<Zodiac | null>(null);
   const displayRef = useRef<HTMLDivElement>(null);
   const lastEnterTimeRef = useRef<number>(0);
 
@@ -268,6 +278,37 @@ export function Calculator({ mode, onCreateBlock, blockValues }: CalculatorProps
     }
   };
 
+  const handleZodiacCalculate = () => {
+    setError(null);
+
+    const year = parseInt(display);
+    if (isNaN(year) || year < 1 || year > 9999) {
+      setError('1から9999のねんをいれてね');
+      return;
+    }
+
+    const zodiac = getZodiacFromYear(year);
+    const zodiacStr = getZodiacDisplayString(zodiac);
+    const formula = `${year}年 → ${zodiacStr}`;
+
+    // Create C-Block with zodiac result
+    onCreateBlock(formula);
+
+    // Clear display
+    setDisplay('0');
+  };
+
+  // Handle zodiac wheel click - show all years for selected zodiac
+  const handleZodiacClick = (zodiac: Zodiac) => {
+    setSelectedZodiac(zodiac);
+  };
+
+  // Handle year selection from zodiac list
+  const handleYearSelect = (year: number) => {
+    setDisplay(year.toString());
+    setSelectedZodiac(null); // Close the list after selection
+  };
+
   return (
     <div className="calculator-panel">
       <div
@@ -370,11 +411,180 @@ export function Calculator({ mode, onCreateBlock, blockValues }: CalculatorProps
       )}
 
       {mode === BlockType.ZODIAC && (
-        <div style={{ padding: '1rem', color: 'var(--text-secondary)' }}>
-          <p>十二支のけいさんモード</p>
-          <p style={{ fontSize: '0.875rem', marginTop: '0.5rem' }}>
-            じゅんびちゅう：年から十二支をしらべられるよ
-          </p>
+        <div className="zodiac-calculator">
+          {/* Zodiac Wheel */}
+          <div className="zodiac-wheel-container">
+            <img
+              src="/calculator/zodiac-wheel.png"
+              alt="十二支の円盤"
+              className="zodiac-wheel-image"
+            />
+            <div className="zodiac-wheel-buttons">
+              {/* 12時位置から時計回りに配置 */}
+              <button
+                className="zodiac-wheel-btn zodiac-rat"
+                onClick={() => handleZodiacClick(Zodiac.RAT)}
+                title="ねずみ年"
+              >
+                {ZODIAC_EMOJI[Zodiac.RAT]}
+              </button>
+              <button
+                className="zodiac-wheel-btn zodiac-ox"
+                onClick={() => handleZodiacClick(Zodiac.OX)}
+                title="うし年"
+              >
+                {ZODIAC_EMOJI[Zodiac.OX]}
+              </button>
+              <button
+                className="zodiac-wheel-btn zodiac-tiger"
+                onClick={() => handleZodiacClick(Zodiac.TIGER)}
+                title="とら年"
+              >
+                {ZODIAC_EMOJI[Zodiac.TIGER]}
+              </button>
+              <button
+                className="zodiac-wheel-btn zodiac-rabbit"
+                onClick={() => handleZodiacClick(Zodiac.RABBIT)}
+                title="うさぎ年"
+              >
+                {ZODIAC_EMOJI[Zodiac.RABBIT]}
+              </button>
+              <button
+                className="zodiac-wheel-btn zodiac-dragon"
+                onClick={() => handleZodiacClick(Zodiac.DRAGON)}
+                title="たつ年"
+              >
+                {ZODIAC_EMOJI[Zodiac.DRAGON]}
+              </button>
+              <button
+                className="zodiac-wheel-btn zodiac-snake"
+                onClick={() => handleZodiacClick(Zodiac.SNAKE)}
+                title="へび年"
+              >
+                {ZODIAC_EMOJI[Zodiac.SNAKE]}
+              </button>
+              <button
+                className="zodiac-wheel-btn zodiac-horse"
+                onClick={() => handleZodiacClick(Zodiac.HORSE)}
+                title="うま年"
+              >
+                {ZODIAC_EMOJI[Zodiac.HORSE]}
+              </button>
+              <button
+                className="zodiac-wheel-btn zodiac-sheep"
+                onClick={() => handleZodiacClick(Zodiac.SHEEP)}
+                title="ひつじ年"
+              >
+                {ZODIAC_EMOJI[Zodiac.SHEEP]}
+              </button>
+              <button
+                className="zodiac-wheel-btn zodiac-monkey"
+                onClick={() => handleZodiacClick(Zodiac.MONKEY)}
+                title="さる年"
+              >
+                {ZODIAC_EMOJI[Zodiac.MONKEY]}
+              </button>
+              <button
+                className="zodiac-wheel-btn zodiac-rooster"
+                onClick={() => handleZodiacClick(Zodiac.ROOSTER)}
+                title="とり年"
+              >
+                {ZODIAC_EMOJI[Zodiac.ROOSTER]}
+              </button>
+              <button
+                className="zodiac-wheel-btn zodiac-dog"
+                onClick={() => handleZodiacClick(Zodiac.DOG)}
+                title="いぬ年"
+              >
+                {ZODIAC_EMOJI[Zodiac.DOG]}
+              </button>
+              <button
+                className="zodiac-wheel-btn zodiac-pig"
+                onClick={() => handleZodiacClick(Zodiac.PIG)}
+                title="いのしし年"
+              >
+                {ZODIAC_EMOJI[Zodiac.PIG]}
+              </button>
+            </div>
+          </div>
+
+          {/* 選択された干支の年リスト */}
+          {selectedZodiac && (
+            <div className="zodiac-years-list">
+              <div className="zodiac-years-header">
+                <h3>{ZODIAC_NAMES_JA[selectedZodiac]}年 の人たち</h3>
+                <button
+                  className="zodiac-close-btn"
+                  onClick={() => setSelectedZodiac(null)}
+                >
+                  ✕
+                </button>
+              </div>
+              <div className="zodiac-years-grid">
+                {getAllYearsForZodiac(selectedZodiac).map(({ year, age }) => (
+                  <button
+                    key={year}
+                    className="zodiac-year-item"
+                    onClick={() => handleYearSelect(year)}
+                  >
+                    <div className="year-text">{year}年</div>
+                    <div className="age-text">→ いま {age}さい</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="zodiac-input-group">
+            <label className="zodiac-label">うまれた年 (西暦)</label>
+            <select
+              className="zodiac-year-select"
+              value={display === '0' ? new Date().getFullYear().toString() : display}
+              onChange={(e) => setDisplay(e.target.value)}
+            >
+              {Array.from({ length: 125 }, (_, i) => {
+                const year = new Date().getFullYear() - i;
+                return (
+                  <option key={year} value={year}>
+                    {year}年
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+
+          <button
+            className="zodiac-calculate-btn"
+            onClick={handleZodiacCalculate}
+          >
+            十二支としらべる 🔍
+          </button>
+
+          <div className="zodiac-result">
+            {display !== '0' && (() => {
+              const year = parseInt(display);
+              if (!isNaN(year)) {
+                const zodiac = getZodiacFromYear(year);
+                const age = calculateAge(year);
+                const zodiacStr = getZodiacDisplayString(zodiac);
+                return (
+                  <div className="zodiac-info">
+                    <div className="zodiac-display">{zodiacStr}</div>
+                    <div className="age-display">
+                      {year}年うまれ → いま {age}さい
+                    </div>
+                  </div>
+                );
+              }
+              return null;
+            })()}
+          </div>
+
+          <div className="zodiac-help">
+            <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', margin: '0.3rem 0' }}>
+              円盤の動物をクリックするか、年をえらんで、ボタンをおすと、マグネットができるよ！
+            </p>
+          </div>
         </div>
       )}
 
