@@ -67,7 +67,7 @@ body {
   background: linear-gradient(180deg, var(--wood-brown) 0%, var(--wood-dark) 100%);
   border-bottom: 4px solid var(--wood-dark);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3),
-              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   z-index: 100;
   position: relative;
   gap: 1rem;
@@ -381,9 +381,17 @@ body {
 }
 
 @keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Blockly workspace pattern overlay */
@@ -525,13 +533,11 @@ body {
   right: 0;
   bottom: 0;
   background-image:
-    repeating-linear-gradient(
-      0deg,
+    repeating-linear-gradient(0deg,
       transparent,
       transparent 2px,
       rgba(255, 255, 255, 0.01) 2px,
-      rgba(255, 255, 255, 0.01) 4px
-    );
+      rgba(255, 255, 255, 0.01) 4px);
   pointer-events: none;
 }
 
@@ -744,13 +750,11 @@ body {
   right: 0;
   bottom: 0;
   background-image:
-    repeating-linear-gradient(
-      0deg,
+    repeating-linear-gradient(0deg,
       transparent,
       transparent 2px,
       rgba(255, 255, 255, 0.01) 2px,
-      rgba(255, 255, 255, 0.01) 4px
-    );
+      rgba(255, 255, 255, 0.01) 4px);
   pointer-events: none;
   z-index: 1;
 }
@@ -954,9 +958,12 @@ body {
 
 /* Animations */
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.7;
   }
@@ -988,8 +995,7 @@ body {
   right: 0;
   height: 20px;
   background-image:
-    repeating-linear-gradient(
-      90deg,
+    repeating-linear-gradient(90deg,
       transparent,
       transparent 30px,
       var(--chalk-yellow) 30px,
@@ -997,21 +1003,18 @@ body {
       var(--chalk-blue) 40px,
       var(--chalk-blue) 50px,
       var(--chalk-pink) 50px,
-      var(--chalk-pink) 60px
-    );
-  clip-path: polygon(
-    0 0, 5% 0, 7.5% 100%, 10% 0,
-    15% 0, 17.5% 100%, 20% 0,
-    25% 0, 27.5% 100%, 30% 0,
-    35% 0, 37.5% 100%, 40% 0,
-    45% 0, 47.5% 100%, 50% 0,
-    55% 0, 57.5% 100%, 60% 0,
-    65% 0, 67.5% 100%, 70% 0,
-    75% 0, 77.5% 100%, 80% 0,
-    85% 0, 87.5% 100%, 90% 0,
-    95% 0, 97.5% 100%, 100% 0,
-    100% 100%, 0 100%
-  );
+      var(--chalk-pink) 60px);
+  clip-path: polygon(0 0, 5% 0, 7.5% 100%, 10% 0,
+      15% 0, 17.5% 100%, 20% 0,
+      25% 0, 27.5% 100%, 30% 0,
+      35% 0, 37.5% 100%, 40% 0,
+      45% 0, 47.5% 100%, 50% 0,
+      55% 0, 57.5% 100%, 60% 0,
+      65% 0, 67.5% 100%, 70% 0,
+      75% 0, 77.5% 100%, 80% 0,
+      85% 0, 87.5% 100%, 90% 0,
+      95% 0, 97.5% 100%, 100% 0,
+      100% 100%, 0 100%);
 }
 
 /* Responsive - スマホ対応 */
@@ -1372,7 +1375,8 @@ body {
 .condense-btn {
   position: fixed;
   top: 6rem;
-  left: 2rem;
+  left: 420px;
+  /* キャンバスエリアの左端（電卓パネル幅400px + 余白20px） */
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 50%;
@@ -1404,6 +1408,7 @@ body {
 
 /* タブレット対応 (769px-1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
+
   /* ヘッダーを小さく */
   .app-header {
     padding: 0.5rem 1rem;
@@ -1468,7 +1473,8 @@ body {
   /* 凝縮ボタンを調整 */
   .condense-btn {
     top: 5.5rem;
-    left: 1.5rem;
+    right: 1.5rem;
+    left: auto;
     width: 3rem;
     height: 3rem;
     font-size: 1.25rem;

@@ -4,7 +4,14 @@
  */
 
 import { useState, useEffect } from 'react';
-import { DndContext, DragEndEvent } from '@dnd-kit/core';
+import {
+  DndContext,
+  DragEndEvent,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
 import type { CBlock, UserSettings } from '../types';
 import { CBlockComponent } from './CBlock';
 
@@ -26,6 +33,22 @@ export function Canvas({
   settings,
 }: CanvasProps) {
   const [selectedBlockIds, setSelectedBlockIds] = useState<Set<string>>(new Set());
+
+  // タッチ操作とマウス操作の両方に対応したセンサー設定
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 5, // 5px移動したらドラッグ開始（誤操作防止）
+    },
+  });
+
+  const touchSensor = useSensor(TouchSensor, {
+    activationConstraint: {
+      delay: 100, // 100ms長押しでドラッグ開始
+      tolerance: 5, // 5pxの移動許容（スクロールとの区別）
+    },
+  });
+
+  const sensors = useSensors(mouseSensor, touchSensor);
 
   // キーボードショートカット（Delete/Backspaceで削除、Ctrl+Aで全選択）
   useEffect(() => {
@@ -244,7 +267,7 @@ export function Canvas({
         </div>
       )}
 
-      <DndContext onDragEnd={handleDragEnd}>
+      <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
         <div className="canvas">
           {renderDependencyLines()}
 

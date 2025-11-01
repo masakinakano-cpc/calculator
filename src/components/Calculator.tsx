@@ -198,24 +198,11 @@ export function Calculator({ mode, onCreateBlock, blockValues }: CalculatorProps
     const blockId = e.dataTransfer.getData('blockId');
 
     if (blockValue && blockId) {
-      // If we're waiting for an operand (after an operator), calculate intermediate result
+      // If we're waiting for an operand (after an operator), use the block value as operand
       if (waitingForOperand && input.length > 0) {
-        // Complete the current formula with the dropped value
-        const fullFormula = input + blockValue;
-
-        // Calculate the intermediate result
-        const result = calculateFormula(fullFormula, blockValues);
-
-        if (result.success && result.value) {
-          // Show the calculated result and keep the formula visible
-          setDisplay(result.value);
-          setInput(fullFormula);
-          setWaitingForOperand(false);
-        } else {
-          // If calculation failed, just insert the value
-          setDisplay(blockValue);
-          setWaitingForOperand(false);
-        }
+        // Insert the block value as the operand
+        setDisplay(blockValue);
+        setWaitingForOperand(false);
       } else {
         // Starting a new calculation - clear previous state
         setInput('');
