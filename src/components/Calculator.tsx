@@ -907,9 +907,9 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
       )}
 
       {mode === BlockType.STANDARD && showStandardHistory && (
-        <div className="calculator-panel" style={{ marginTop: '1rem', maxHeight: '400px', overflowY: 'auto' }}>
+        <div className="calculator-panel" style={{ marginTop: '1rem', maxHeight: '70vh', overflowY: 'auto', overflowX: 'hidden', position: 'relative' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-            <h3 style={{ color: '#000', margin: 0 }}>📋 けいさんれきし</h3>
+            <h3 style={{ color: '#000', margin: 0 }}>📋 {getThemeText(theme, 'DATE_HISTORY_VIEW')}</h3>
             <button
               onClick={() => setShowStandardHistory(false)}
               style={{
@@ -1057,7 +1057,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
               </button>
             </div>
           </div>
-          <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
+          <div style={{ maxHeight: '50vh', overflowY: 'auto', overflowX: 'hidden', paddingRight: '0.5rem' }}>
             {(() => {
               const history = getStandardCalculationHistory();
               if (history.length === 0) {
@@ -1782,7 +1782,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
           {/* Trivia Tab - 今日は何の日 */}
           {dateTab === 'trivia' && (
             <div className="date-tab-content fade-in">
-              <h3>📚 きょうはなんのひ</h3>
+              <h3>📚 {getThemeText(theme, 'DATE_TRIVIA')}</h3>
               <div className="date-input-section">
                 <div className="date-input-group">
                   <label className="date-label">ひづけ</label>
@@ -1831,7 +1831,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
           {/* Culture Tab - 日本の文化・行事 */}
           {dateTab === 'culture' && (
             <div className="date-tab-content fade-in">
-              <h3>🎌 にほんのぶんか・ぎょうじ</h3>
+              <h3>🎌 {getThemeText(theme, 'DATE_CULTURE')}</h3>
               <div className="date-input-section">
                 <div className="date-input-group">
                   <label className="date-label">ひづけ</label>
@@ -1893,7 +1893,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
           {/* Calendar Tab - カレンダー表示 */}
           {dateTab === 'calendar' && (
             <div className="date-tab-content fade-in">
-              <h3>📅 カレンダー</h3>
+              <h3>📅 {getThemeText(theme, 'DATE_CALENDAR')}</h3>
               <div className="date-input-section">
                 <div className="date-input-group">
                   <label className="date-label">ねんがつ</label>
@@ -2001,7 +2001,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
           {/* Advanced Tab - 高度な機能 */}
           {dateTab === 'advanced' && (
             <div className="date-tab-content fade-in">
-              <h3>⚙️ こうどなけいさん</h3>
+              <h3>⚙️ {getThemeText(theme, 'DATE_ADVANCED')}</h3>
               <div className="date-input-section" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {/* 営業日計算 */}
                 <div>
@@ -2585,7 +2585,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
           {/* Timeline Tab - タイムライン表示 */}
           {dateTab === 'timeline' && (
             <div className="date-tab-content fade-in">
-              <h3>📊 たいむらいん</h3>
+              <h3>📊 {getThemeText(theme, 'DATE_TIMELINE')}</h3>
               <div className="date-input-section">
                 <div className="date-input-group">
                   <label className="date-label">はじまりのひづけ</label>
@@ -2761,7 +2761,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
           {/* Countdown Tab - カウントダウンタイマー */}
           {dateTab === 'countdown' && (
             <div className="date-tab-content fade-in">
-              <h3>⏰ かうんとだうん</h3>
+              <h3>⏰ {getThemeText(theme, 'DATE_COUNTDOWN')}</h3>
               <div className="date-input-section">
                 <div className="date-input-group">
                   <label className="date-label">もくひょうのひづけ</label>
@@ -2811,7 +2811,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
           {/* Yearly Calendar Tab - 年間カレンダー */}
           {dateTab === 'yearly' && (
             <div className="date-tab-content fade-in">
-              <h3>📆 ねんかんカレンダー</h3>
+              <h3>📆 {getThemeText(theme, 'DATE_YEARLY')}</h3>
               <div className="date-input-section">
                 <div className="date-input-group">
                   <label className="date-label">ねん</label>
@@ -2863,7 +2863,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
           {/* Weekly Calendar Tab - 週間カレンダー */}
           {dateTab === 'weekly' && (
             <div className="date-tab-content fade-in">
-              <h3>📅 しゅうかんカレンダー</h3>
+              <h3>📅 {getThemeText(theme, 'DATE_WEEKLY')}</h3>
               <div className="date-input-section">
                 <div className="date-input-group">
                   <label className="date-label">ひづけ</label>
@@ -2935,7 +2935,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
           {/* Date Range Tab - 日付の範囲指定 */}
           {dateTab === 'range' && (
             <div className="date-tab-content fade-in">
-              <h3>📊 ひづけのはんいけいさん</h3>
+              <h3>📊 {getThemeText(theme, 'DATE_RANGE')}</h3>
               <div className="date-input-section">
                 <div className="date-input-group">
                   <label className="date-label">はじまりのひづけ</label>
@@ -3364,7 +3364,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
               className={`zodiac-tab ${zodiacTab === 'compatibility' ? 'active' : ''}`}
               onClick={() => setZodiacTab('compatibility')}
             >
-              💕 あいしょう
+              💕 {getThemeText(theme, 'ZODIAC_COMPATIBILITY')}
             </button>
             <button
               className={`zodiac-tab ${zodiacTab === 'info' ? 'active' : ''}`}
@@ -3376,7 +3376,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
               className={`zodiac-tab ${zodiacTab === 'quiz' ? 'active' : ''}`}
               onClick={() => setZodiacTab('quiz')}
             >
-              🎮 クイズ
+              🎮 {getThemeText(theme, 'ZODIAC_QUIZ')}
             </button>
           </div>
 
@@ -3512,7 +3512,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
           {/* Age Tab */}
           {zodiacTab === 'age' && (
             <div className="zodiac-age-calculator fade-in">
-              <h3>ねんれいから干支をさがす</h3>
+              <h3>{theme === 'kids' ? 'ねんれいから干支をさがす' : '年齢から干支を探す'}</h3>
               <div className="zodiac-input-group">
                 <label className="zodiac-label">ねんれい</label>
                 <input
@@ -3526,11 +3526,11 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                 />
               </div>
               <button className="zodiac-calculate-btn" onClick={handleAgeCalculate}>
-                けいさんする
+                {getThemeText(theme, 'DATE_CALCULATE')}
               </button>
 
               <div className="family-section">
-                <h3>かぞくの干支リスト</h3>
+                <h3>{theme === 'kids' ? 'かぞくの干支リスト' : '家族の干支リスト'}</h3>
                 <div className="add-member-form">
                   <input
                     type="text"
@@ -3565,7 +3565,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
           {/* Compatibility Tab */}
           {zodiacTab === 'compatibility' && (
             <div className="zodiac-compatibility fade-in">
-              <h3>干支のあいしょうチェック</h3>
+              <h3>{theme === 'kids' ? '干支のあいしょうチェック' : '干支の相性チェック'}</h3>
 
               <div className="compat-selector">
                 <div className="compat-group">
@@ -3606,7 +3606,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                 onClick={handleCompatibilityCheck}
                 disabled={!compatZodiac1 || !compatZodiac2}
               >
-                あいしょうをチェック！
+                {theme === 'kids' ? 'あいしょうをチェック！' : '相性をチェック！'}
               </button>
 
               {compatZodiac1 && compatZodiac2 && (
@@ -3952,7 +3952,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
               className={`fortune-tab ${fortuneTab === 'compatibility' ? 'active' : ''}`}
               onClick={() => setFortuneTab('compatibility')}
             >
-              💕 あいしょう
+              💕 {getThemeText(theme, 'ZODIAC_COMPATIBILITY')}
             </button>
             <button
               className={`fortune-tab ${fortuneTab === 'monthly' ? 'active' : ''}`}
@@ -5340,7 +5340,7 @@ function CartCalculator({ onCreateBlock, theme = 'kids' }: { onCreateBlock: (for
             fontWeight: cartTab === 'history' ? 'bold' : 'normal',
           }}
         >
-          📋 れきし
+          📋 {getThemeText(theme, 'CART_HISTORY')}
         </button>
       </div>
 
