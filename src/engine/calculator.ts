@@ -10,52 +10,45 @@ import { substituteBlockValues, validateFormula } from './parser';
 Decimal.set({ precision: 50 });
 
 /**
- * Evaluate a mathematical expression with proper operator precedence
+ * Evaluate a mathematical expression left-to-right (like a typical calculator)
  * Supports: +, -, *, /, %, ^ (power), parentheses
+ * Note: This evaluates left-to-right without operator precedence, except for parentheses
  */
 export function evaluate(expression: string): Decimal {
   // Remove all whitespace
   const expr = expression.replace(/\s/g, '');
 
-  // Parse and evaluate with proper precedence
-  return parseExpression(expr, { pos: 0 });
+  // Parse and evaluate left-to-right
+  return evaluateLeftToRight(expr, { pos: 0 });
 }
 
 /**
- * Parse expression (handles + and -)
+ * Evaluate expression left-to-right (like a typical calculator)
+ * Processes operators in the order they appear, from left to right
  */
-function parseExpression(expr: string, ctx: { pos: number }): Decimal {
-  let result = parseTerm(expr, ctx);
+function evaluateLeftToRight(expr: string, ctx: { pos: number }): Decimal {
+  // Start with the first value
+  let result = parseValue(expr, ctx);
 
+  // Process operators left-to-right
   while (ctx.pos < expr.length) {
     const op = expr[ctx.pos];
 
-    if (op === '+' || op === '-') {
-      ctx.pos++;
-      const right = parseTerm(expr, ctx);
-      result = op === '+' ? result.plus(right) : result.minus(right);
-    } else {
+    // Skip if we hit a closing parenthesis (handled in parseValue)
+    if (op === ')') {
       break;
     }
-  }
 
-  return result;
-}
-
-/**
- * Parse term (handles *, /, %)
- */
-function parseTerm(expr: string, ctx: { pos: number }): Decimal {
-  let result = parsePower(expr, ctx);
-
-  while (ctx.pos < expr.length) {
-    const op = expr[ctx.pos];
-
-    if (op === '*' || op === '/' || op === '%') {
+    // Handle all operators in order of appearance
+    if (['+', '-', '*', '/', '%', '^'].includes(op)) {
       ctx.pos++;
-      const right = parseFactor(expr, ctx);
+      const right = parseValue(expr, ctx);
 
-      if (op === '*') {
+      if (op === '+') {
+        result = result.plus(right);
+      } else if (op === '-') {
+        result = result.minus(right);
+      } else if (op === '*') {
         result = result.times(right);
       } else if (op === '/') {
         if (right.isZero()) {
@@ -64,6 +57,9 @@ function parseTerm(expr: string, ctx: { pos: number }): Decimal {
         result = result.dividedBy(right);
       } else if (op === '%') {
         result = result.modulo(right);
+      } else if (op === '^') {
+        // Decimal.js uses toPower for exponentiation
+        result = result.toPower(right);
       }
     } else {
       break;
@@ -74,44 +70,28 @@ function parseTerm(expr: string, ctx: { pos: number }): Decimal {
 }
 
 /**
- * Parse power (handles ^ (power), highest precedence)
+ * Parse a value (number, unary minus, or parentheses)
  */
-function parsePower(expr: string, ctx: { pos: number }): Decimal {
-  let result = parseFactor(expr, ctx);
-
-  while (ctx.pos < expr.length && expr[ctx.pos] === '^') {
-    ctx.pos++;
-    const right = parseFactor(expr, ctx);
-    // Decimal.js uses toPower for exponentiation
-    result = result.toPower(right);
-  }
-
-  return result;
-}
-
-/**
- * Parse factor (handles numbers, unary minus, and parentheses)
- */
-function parseFactor(expr: string, ctx: { pos: number }): Decimal {
+function parseValue(expr: string, ctx: { pos: number }): Decimal {
   // Handle unary minus
   if (ctx.pos < expr.length && expr[ctx.pos] === '-') {
     ctx.pos++;
-    return parseFactor(expr, ctx).negated();
+    return parseValue(expr, ctx).negated();
   }
 
   // Handle unary plus
   if (ctx.pos < expr.length && expr[ctx.pos] === '+') {
     ctx.pos++;
-    return parseFactor(expr, ctx);
+    return parseValue(expr, ctx);
   }
 
-  // Handle parentheses
+  // Handle parentheses - evaluate contents left-to-right
   if (ctx.pos < expr.length && expr[ctx.pos] === '(') {
-    ctx.pos++;
-    const result = parseExpression(expr, ctx);
-
+    ctx.pos++; // Skip '('
+    const result = evaluateLeftToRight(expr, ctx);
+    
     if (ctx.pos < expr.length && expr[ctx.pos] === ')') {
-      ctx.pos++;
+      ctx.pos++; // Skip ')'
     } else {
       throw new Error('Missing closing parenthesis');
     }
