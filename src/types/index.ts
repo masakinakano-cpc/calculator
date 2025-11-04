@@ -13,6 +13,7 @@ export enum BlockType {
   AGE = 'AGE',                // Age calculations
   UNIT = 'UNIT',              // Unit conversions
   CART = 'CART',              // Shopping cart/list functionality
+  FORTUNE = 'FORTUNE',        // Comprehensive fortune telling
 }
 
 /**

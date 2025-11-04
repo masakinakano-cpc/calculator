@@ -212,3 +212,251 @@ export const ZODIAC_POSITIONS: Record<Zodiac, number> = {
   [Zodiac.DOG]: 300,      // 10時 (戌)
   [Zodiac.PIG]: 330,      // 11時 (亥)
 };
+
+/**
+ * 十二支の英語名
+ */
+export const ZODIAC_NAMES_EN: Record<Zodiac, string> = {
+  [Zodiac.RAT]: 'Rat',
+  [Zodiac.OX]: 'Ox',
+  [Zodiac.TIGER]: 'Tiger',
+  [Zodiac.RABBIT]: 'Rabbit',
+  [Zodiac.DRAGON]: 'Dragon',
+  [Zodiac.SNAKE]: 'Snake',
+  [Zodiac.HORSE]: 'Horse',
+  [Zodiac.SHEEP]: 'Goat',
+  [Zodiac.MONKEY]: 'Monkey',
+  [Zodiac.ROOSTER]: 'Rooster',
+  [Zodiac.DOG]: 'Dog',
+  [Zodiac.PIG]: 'Pig',
+};
+
+/**
+ * 五行（ごぎょう）: 木火土金水
+ */
+export enum Element {
+  WOOD = 'WOOD',     // 木
+  FIRE = 'FIRE',     // 火
+  EARTH = 'EARTH',   // 土
+  METAL = 'METAL',   // 金
+  WATER = 'WATER',   // 水
+}
+
+export const ELEMENT_NAMES_JA: Record<Element, string> = {
+  [Element.WOOD]: '木',
+  [Element.FIRE]: '火',
+  [Element.EARTH]: '土',
+  [Element.METAL]: '金',
+  [Element.WATER]: '水',
+};
+
+export const ELEMENT_NAMES_EN: Record<Element, string> = {
+  [Element.WOOD]: 'Wood',
+  [Element.FIRE]: 'Fire',
+  [Element.EARTH]: 'Earth',
+  [Element.METAL]: 'Metal',
+  [Element.WATER]: 'Water',
+};
+
+/**
+ * 十二支と五行の対応
+ */
+export const ZODIAC_ELEMENTS: Record<Zodiac, Element> = {
+  [Zodiac.RAT]: Element.WATER,
+  [Zodiac.OX]: Element.EARTH,
+  [Zodiac.TIGER]: Element.WOOD,
+  [Zodiac.RABBIT]: Element.WOOD,
+  [Zodiac.DRAGON]: Element.EARTH,
+  [Zodiac.SNAKE]: Element.FIRE,
+  [Zodiac.HORSE]: Element.FIRE,
+  [Zodiac.SHEEP]: Element.EARTH,
+  [Zodiac.MONKEY]: Element.METAL,
+  [Zodiac.ROOSTER]: Element.METAL,
+  [Zodiac.DOG]: Element.EARTH,
+  [Zodiac.PIG]: Element.WATER,
+};
+
+/**
+ * 十二支の性格・特徴
+ */
+export const ZODIAC_CHARACTERISTICS: Record<Zodiac, {
+  personality: string;
+  strengths: string[];
+  luckyColors: string[];
+  luckyNumbers: number[];
+}> = {
+  [Zodiac.RAT]: {
+    personality: 'かしこくて、てきおうりょくがたかい。ちゅういぶかくて、おかねのかんりがとくい',
+    strengths: ['ちえがある', 'そうぞうりょくがゆたか', 'きようがきく'],
+    luckyColors: ['あお', 'きん', 'みどり'],
+    luckyNumbers: [2, 3],
+  },
+  [Zodiac.OX]: {
+    personality: 'まじめで、こつこつとがんばる。しんらいできて、せきにんかんがつよい',
+    strengths: ['しんぼうづよい', 'せきにんかんがある', 'せいじつ'],
+    luckyColors: ['きいろ', 'みどり', 'しろ'],
+    luckyNumbers: [1, 9],
+  },
+  [Zodiac.TIGER]: {
+    personality: 'ゆうかんで、じしんがある。リーダーシップがあり、ぼうけんずき',
+    strengths: ['ゆうき', 'じしん', 'じょうねつてき'],
+    luckyColors: ['あお', 'はいいろ', 'オレンジ'],
+    luckyNumbers: [1, 3, 4],
+  },
+  [Zodiac.RABBIT]: {
+    personality: 'やさしくて、れいぎただしい。へいわをこのみ、げいじゅつてきなセンスがある',
+    strengths: ['やさしい', 'しんちょう', 'ゆうが'],
+    luckyColors: ['あか', 'ピンク', 'むらさき', 'あお'],
+    luckyNumbers: [3, 4, 9],
+  },
+  [Zodiac.DRAGON]: {
+    personality: 'パワフルで、カリスマせいがある。やさしくて、りそうがたかい',
+    strengths: ['じしん', 'ちえ', 'ねつれつ'],
+    luckyColors: ['きん', 'ぎん', 'しろ'],
+    luckyNumbers: [1, 6, 7],
+  },
+  [Zodiac.SNAKE]: {
+    personality: 'かしこくて、ちょっかんがするどい。おちついていて、しんちょう',
+    strengths: ['ちてき', 'ちょっかん', 'ミステリアス'],
+    luckyColors: ['くろ', 'あか', 'きいろ'],
+    luckyNumbers: [2, 8, 9],
+  },
+  [Zodiac.HORSE]: {
+    personality: 'げんきで、じゆうをあいする。しゃこうてきで、たのしいことがすき',
+    strengths: ['げんき', 'じゆう', 'がんばりや'],
+    luckyColors: ['きいろ', 'みどり'],
+    luckyNumbers: [2, 3, 7],
+  },
+  [Zodiac.SHEEP]: {
+    personality: 'やさしくて、おだやか。げいじゅつてきで、かぞくをたいせつにする',
+    strengths: ['やさしい', 'そうぞうりょく', 'おもいやり'],
+    luckyColors: ['みどり', 'あか', 'むらさき'],
+    luckyNumbers: [3, 4, 9],
+  },
+  [Zodiac.MONKEY]: {
+    personality: 'あたまがよくて、ユーモアがある。きようで、てきおうりょくがたかい',
+    strengths: ['あたまがいい', 'おもしろい', 'きようがきく'],
+    luckyColors: ['しろ', 'あお', 'きん'],
+    luckyNumbers: [1, 7, 8],
+  },
+  [Zodiac.ROOSTER]: {
+    personality: 'しっかりしていて、せいかくにこうどうする。じしんがあり、まじめ',
+    strengths: ['せいかく', 'じしん', 'まじめ'],
+    luckyColors: ['きん', 'ちゃいろ', 'きいろ'],
+    luckyNumbers: [5, 7, 8],
+  },
+  [Zodiac.DOG]: {
+    personality: 'ちゅうじつで、しんらいできる。まじめで、せいぎかんがつよい',
+    strengths: ['ちゅうじつ', 'ゆうかん', 'せきにんかん'],
+    luckyColors: ['あか', 'みどり', 'むらさき'],
+    luckyNumbers: [3, 4, 9],
+  },
+  [Zodiac.PIG]: {
+    personality: 'やさしくて、しょうじき。かぞくおもいで、たのしいことがすき',
+    strengths: ['やさしい', 'しょうじき', 'ゆたか'],
+    luckyColors: ['きいろ', 'はいいろ', 'ちゃいろ', 'きん'],
+    luckyNumbers: [2, 5, 8],
+  },
+};
+
+/**
+ * 十二支の相性（最高の相性）
+ */
+export const ZODIAC_BEST_MATCHES: Record<Zodiac, Zodiac[]> = {
+  [Zodiac.RAT]: [Zodiac.DRAGON, Zodiac.MONKEY, Zodiac.OX],
+  [Zodiac.OX]: [Zodiac.RAT, Zodiac.SNAKE, Zodiac.ROOSTER],
+  [Zodiac.TIGER]: [Zodiac.HORSE, Zodiac.DOG, Zodiac.PIG],
+  [Zodiac.RABBIT]: [Zodiac.SHEEP, Zodiac.PIG, Zodiac.DOG],
+  [Zodiac.DRAGON]: [Zodiac.RAT, Zodiac.MONKEY, Zodiac.ROOSTER],
+  [Zodiac.SNAKE]: [Zodiac.OX, Zodiac.ROOSTER, Zodiac.MONKEY],
+  [Zodiac.HORSE]: [Zodiac.TIGER, Zodiac.SHEEP, Zodiac.DOG],
+  [Zodiac.SHEEP]: [Zodiac.RABBIT, Zodiac.HORSE, Zodiac.PIG],
+  [Zodiac.MONKEY]: [Zodiac.RAT, Zodiac.DRAGON, Zodiac.SNAKE],
+  [Zodiac.ROOSTER]: [Zodiac.OX, Zodiac.SNAKE, Zodiac.DRAGON],
+  [Zodiac.DOG]: [Zodiac.TIGER, Zodiac.RABBIT, Zodiac.HORSE],
+  [Zodiac.PIG]: [Zodiac.RABBIT, Zodiac.SHEEP, Zodiac.TIGER],
+};
+
+/**
+ * 十二支の相性（注意が必要）
+ */
+export const ZODIAC_CHALLENGING_MATCHES: Record<Zodiac, Zodiac[]> = {
+  [Zodiac.RAT]: [Zodiac.HORSE, Zodiac.ROOSTER],
+  [Zodiac.OX]: [Zodiac.SHEEP, Zodiac.HORSE, Zodiac.DOG],
+  [Zodiac.TIGER]: [Zodiac.SNAKE, Zodiac.MONKEY],
+  [Zodiac.RABBIT]: [Zodiac.ROOSTER, Zodiac.RAT],
+  [Zodiac.DRAGON]: [Zodiac.DOG, Zodiac.DRAGON],
+  [Zodiac.SNAKE]: [Zodiac.TIGER, Zodiac.PIG],
+  [Zodiac.HORSE]: [Zodiac.RAT, Zodiac.OX],
+  [Zodiac.SHEEP]: [Zodiac.OX, Zodiac.DOG],
+  [Zodiac.MONKEY]: [Zodiac.TIGER, Zodiac.PIG],
+  [Zodiac.ROOSTER]: [Zodiac.RABBIT, Zodiac.ROOSTER],
+  [Zodiac.DOG]: [Zodiac.DRAGON, Zodiac.SHEEP, Zodiac.OX],
+  [Zodiac.PIG]: [Zodiac.SNAKE, Zodiac.MONKEY],
+};
+
+/**
+ * 十二支の由来・歴史
+ */
+export const ZODIAC_HISTORY = `
+十二支（じゅうにし）は、中国からつたわった、ねん・つき・ひ・じかんをあらわすほうほうだよ。
+
+むかしむかし、かみさまが「おしょうがつのあさ、さいしょにきた12ひきの どうぶつを、ねんのかみさまにするよ！」と いったんだ。
+
+ねずみは うしのせなかに のって いちばんに とうちゃく！それで ねずみ が いちばんに なったんだって。
+
+日本では やく1400ねんまえから つかわれていて、いまでも おしょうがつや ねんがじょう で みることが できるね。
+`;
+
+/**
+ * 2つの干支の相性を計算
+ */
+export function calculateCompatibility(zodiac1: Zodiac, zodiac2: Zodiac): {
+  level: 'excellent' | 'good' | 'normal' | 'challenging';
+  message: string;
+} {
+  // 同じ干支
+  if (zodiac1 === zodiac2) {
+    return {
+      level: 'good',
+      message: 'おなじ干支どうしは、おたがいをよく理解できるよ！',
+    };
+  }
+
+  // 最高の相性
+  if (ZODIAC_BEST_MATCHES[zodiac1].includes(zodiac2)) {
+    return {
+      level: 'excellent',
+      message: 'とってもいい相性！いっしょにいると、たのしいことがたくさんありそう！',
+    };
+  }
+
+  // 注意が必要
+  if (ZODIAC_CHALLENGING_MATCHES[zodiac1].includes(zodiac2)) {
+    return {
+      level: 'challenging',
+      message: 'ちがいがあるけど、おたがいを理解すれば、いい友だちになれるよ！',
+    };
+  }
+
+  // 普通の相性
+  return {
+    level: 'normal',
+    message: 'バランスのとれた相性だよ！なかよくできるね。',
+  };
+}
+
+/**
+ * 年齢から生まれた可能性がある年を計算
+ */
+export function getYearFromAge(age: number): number[] {
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth();
+
+  // 誕生日前か後かで2つの可能性がある
+  if (currentMonth < 3) { // 1-3月は前の年も可能性あり
+    return [currentYear - age, currentYear - age - 1];
+  }
+
+  return [currentYear - age];
+}

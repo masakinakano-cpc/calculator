@@ -106,16 +106,22 @@ function App() {
             日づけ
           </button>
           <button
+            className={`mode-btn ${mode === BlockType.UNIT ? 'active' : ''}`}
+            onClick={() => handleModeChange(BlockType.UNIT)}
+          >
+            たんい
+          </button>
+          <button
             className={`mode-btn ${mode === BlockType.ZODIAC ? 'active' : ''}`}
             onClick={() => handleModeChange(BlockType.ZODIAC)}
           >
             十二支
           </button>
           <button
-            className={`mode-btn ${mode === BlockType.UNIT ? 'active' : ''}`}
-            onClick={() => handleModeChange(BlockType.UNIT)}
+            className={`mode-btn ${mode === BlockType.FORTUNE ? 'active' : ''}`}
+            onClick={() => handleModeChange(BlockType.FORTUNE)}
           >
-            たんい
+            うらない
           </button>
         </div>
 
