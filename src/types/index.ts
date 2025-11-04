@@ -113,12 +113,17 @@ export interface CalculatorMode {
 /**
  * User settings and preferences
  */
+export type Theme = 'kids' | 'business';
+
 export interface UserSettings {
   // Display settings
   currencySymbol: string;             // ¥, $, €, etc.
   showCurrencySymbol: boolean;        // Toggle currency symbol display
   useThousandsSeparator: boolean;     // Comma separator
   decimalPlaces: number;              // 0-5
+
+  // Theme settings
+  theme: Theme;                        // 'kids' or 'business'
 
   // Tax settings
   taxRates: TaxRate[];                // Multiple tax rate presets

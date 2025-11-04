@@ -37,6 +37,7 @@ export class NovaCalcDatabase extends Dexie {
         showCurrencySymbol: false,
         useThousandsSeparator: true,
         decimalPlaces: 2,
+        theme: 'kids',
         taxRates: [
           {
             id: 'standard',
@@ -64,7 +65,30 @@ export class NovaCalcDatabase extends Dexie {
    * Get current user settings
    */
   async getSettings(): Promise<UserSettings | undefined> {
-    return await this.settings.toCollection().first();
+    const settings = await this.settings.toCollection().first();
+    if (!settings) {
+      // 設定が存在しない場合は初期化を待つ
+      await this.initializeSettings();
+      return await this.settings.toCollection().first();
+    }
+    if (!settings.theme) {
+      // マイグレーション: 既存の設定にthemeを追加（updateSettingsを使わず直接更新）
+      const current = await this.settings.toCollection().first();
+      if (current) {
+        const id = (current as any).id;
+        if (id) {
+          await this.settings.update(id, { theme: 'kids' });
+          const updated = await this.settings.get(id);
+          return updated || { ...settings, theme: 'kids' };
+        } else {
+          await this.settings.update(1, { theme: 'kids' });
+          const updated = await this.settings.get(1);
+          return updated || { ...settings, theme: 'kids' };
+        }
+      }
+      return { ...settings, theme: 'kids' };
+    }
+    return settings;
   }
 
   /**

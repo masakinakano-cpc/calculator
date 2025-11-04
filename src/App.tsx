@@ -2,13 +2,14 @@
  * NovaCalc - Main Application Component
  */
 
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import { Calculator } from './components/Calculator';
 import { Canvas } from './components/Canvas';
 import { BlocklyPlayground } from './components/BlocklyPlayground';
 import { useBlocks, useSettings } from './hooks/useBlocks';
 import { BlockType } from './types';
 import { calculateNewBlockPosition } from './utils/helpers';
+import { getThemeText } from './utils/themeText';
 import './App.css';
 
 function App() {
@@ -25,6 +26,15 @@ function App() {
     deleteBlock,
   } = useBlocks();
   const { settings, loading: settingsLoading, updateSettings } = useSettings();
+
+  // テーマをHTMLに適用
+  useEffect(() => {
+    if (settings?.theme) {
+      document.documentElement.setAttribute('data-theme', settings.theme);
+    } else {
+      document.documentElement.setAttribute('data-theme', 'kids');
+    }
+  }, [settings?.theme]);
 
   // Create block values map for calculator
   const blockValues = useMemo(() => {
@@ -98,45 +108,65 @@ function App() {
             className={`mode-btn ${mode === BlockType.STANDARD ? 'active' : ''}`}
             onClick={() => handleModeChange(BlockType.STANDARD)}
           >
-            ふつうのけいさん
+            {getThemeText(settings?.theme || 'kids', 'STANDARD')}
           </button>
           <button
             className={`mode-btn ${mode === BlockType.DATE ? 'active' : ''}`}
             onClick={() => handleModeChange(BlockType.DATE)}
           >
-            日づけ
+            {getThemeText(settings?.theme || 'kids', 'DATE')}
           </button>
           <button
             className={`mode-btn ${mode === BlockType.UNIT ? 'active' : ''}`}
             onClick={() => handleModeChange(BlockType.UNIT)}
           >
-            たんい
+            {getThemeText(settings?.theme || 'kids', 'UNIT')}
           </button>
           <button
             className={`mode-btn ${mode === BlockType.ZODIAC ? 'active' : ''}`}
             onClick={() => handleModeChange(BlockType.ZODIAC)}
           >
-            十二支
+            {getThemeText(settings?.theme || 'kids', 'ZODIAC')}
           </button>
           <button
             className={`mode-btn ${mode === BlockType.FORTUNE ? 'active' : ''}`}
             onClick={() => handleModeChange(BlockType.FORTUNE)}
           >
-            うらない
+            {getThemeText(settings?.theme || 'kids', 'FORTUNE')}
           </button>
           <button
             className={`mode-btn ${mode === BlockType.CART ? 'active' : ''}`}
             onClick={() => handleModeChange(BlockType.CART)}
           >
-            カート
+            {getThemeText(settings?.theme || 'kids', 'CART')}
           </button>
         </div>
 
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
           <button
+            className="theme-toggle-btn"
+            onClick={() => {
+              const newTheme = settings?.theme === 'kids' ? 'business' : 'kids';
+              updateSettings({ theme: newTheme });
+            }}
+            title={settings?.theme === 'kids' ? 'ビジネステーマに切り替え' : 'キッズテーマに切り替え'}
+            style={{
+              backgroundColor: settings?.theme === 'business' ? '#2196F3' : '#667eea',
+              color: 'white',
+              padding: '0.5rem 0.75rem',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontSize: '0.875rem',
+              fontWeight: 'bold',
+            }}
+          >
+            {settings?.theme === 'kids' ? '🎨 ビジネス' : '🎨 キッズ'}
+          </button>
+          <button
             className="currency-toggle-btn"
             onClick={() => updateSettings({ showCurrencySymbol: !settings?.showCurrencySymbol })}
-            title="えんマークひょうじ"
+            title={settings?.theme === 'kids' ? 'えんマークひょうじ' : '円マーク表示'}
             style={{
               backgroundColor: settings?.showCurrencySymbol ? '#95e1d3' : '#ddd',
               color: settings?.showCurrencySymbol ? 'white' : '#666',
@@ -244,6 +274,7 @@ function App() {
             await updateBlock(blockId, { groupId });
           }}
           settings={settings}
+          theme={settings?.theme || 'kids'}
         />
       </main>
     </div>

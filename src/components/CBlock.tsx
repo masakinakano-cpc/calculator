@@ -6,8 +6,9 @@
 import { useState, useRef } from 'react';
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
-import type { CBlock } from '../types';
+import type { CBlock, Theme } from '../types';
 import { getBlockTypeColor, displayNumber, truncate } from '../utils/helpers';
+import { getThemeText } from '../utils/themeText';
 
 interface CBlockProps {
   block: CBlock;
@@ -21,6 +22,7 @@ interface CBlockProps {
     useThousandsSeparator?: boolean;
     decimalPlaces?: number;
   };
+  theme?: Theme;
 }
 
 export function CBlockComponent({
@@ -30,6 +32,7 @@ export function CBlockComponent({
   onSelect,
   selected,
   settings,
+  theme = 'kids',
 }: CBlockProps) {
   const [editingMemo, setEditingMemo] = useState(false);
   const [memoValue, setMemoValue] = useState(block.memoText || '');
@@ -126,7 +129,7 @@ export function CBlockComponent({
               e.stopPropagation();
               handleDoubleClick();
             }}
-            title="メモをかく"
+            title={getThemeText(theme, 'CBLOCK_MEMO_WRITE')}
           >
             ✎
           </button>
@@ -135,11 +138,11 @@ export function CBlockComponent({
             onPointerDown={(e) => e.stopPropagation()}
             onClick={(e) => {
               e.stopPropagation();
-              if (confirm('このマグネットをけしますか？')) {
+              if (confirm(getThemeText(theme, 'CBLOCK_DELETE_CONFIRM'))) {
                 onDelete(block.blockId);
               }
             }}
-            title="マグネットをけす"
+            title={getThemeText(theme, 'CBLOCK_DELETE')}
           >
             🗑️
           </button>
@@ -169,7 +172,7 @@ export function CBlockComponent({
                   handleMemoCancel();
                 }
               }}
-              placeholder="メモをかいてね (Ctrl+Enterでほぞん、Escでキャンセル)"
+              placeholder={getThemeText(theme, 'CBLOCK_MEMO_PLACEHOLDER')}
               rows={4}
             />
             <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>

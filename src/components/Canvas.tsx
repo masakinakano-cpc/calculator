@@ -14,6 +14,8 @@ import {
 } from '@dnd-kit/core';
 import type { CBlock, UserSettings } from '../types';
 import { CBlockComponent } from './CBlock';
+import { getThemeText } from '../utils/themeText';
+import type { Theme } from '../types';
 
 interface CanvasProps {
   blocks: CBlock[];
@@ -23,6 +25,7 @@ interface CanvasProps {
   onCondenseAll: () => void;
   onUpdateBlockGroup?: (blockId: string, groupId: string | undefined) => void;
   settings: UserSettings | null;
+  theme?: Theme;
 }
 
 export function Canvas({
@@ -33,6 +36,7 @@ export function Canvas({
   onCondenseAll,
   onUpdateBlockGroup,
   settings,
+  theme = 'kids',
 }: CanvasProps) {
   const [selectedBlockIds, setSelectedBlockIds] = useState<Set<string>>(new Set());
 
@@ -280,7 +284,7 @@ export function Canvas({
       {selectedBlockIds.size > 0 && (
         <div className="canvas-toolbar">
           <div className="toolbar-info">
-            {selectedBlockIds.size}この マグネット をせんたくちゅう
+            {theme === 'kids' ? `${selectedBlockIds.size}この マグネット をせんたくちゅう` : `${selectedBlockIds.size}${getThemeText(theme, 'CANVAS_SELECTED')}`}
           </div>
           {selectedBlockIds.size >= 2 && onUpdateBlockGroup && (
             <>
@@ -290,7 +294,7 @@ export function Canvas({
                   onClick={handleUngroupSelected}
                   title="グループを解除"
                 >
-                  📦 グループかいじょ
+                  📦 {getThemeText(theme, 'CANVAS_UNGROUP')}
                 </button>
               ) : (
                 <button
@@ -298,7 +302,7 @@ export function Canvas({
                   onClick={handleGroupSelected}
                   title="選択したブロックをグループ化"
                 >
-                  📦 グループか
+                  📦 {getThemeText(theme, 'CANVAS_GROUP')}
                 </button>
               )}
             </>
@@ -308,14 +312,14 @@ export function Canvas({
             onClick={handleDeleteSelected}
             title="選択したブロックを削除"
           >
-            🗑️ けす
+            🗑️ {getThemeText(theme, 'CANVAS_DELETE')}
           </button>
           <button
             className="toolbar-btn"
             onClick={handleSelectAll}
             title="すべて選択 (Ctrl+A)"
           >
-            ☑️ ぜんぶ
+            ☑️ {getThemeText(theme, 'CANVAS_SELECT_ALL')}
           </button>
           <button
             className="toolbar-btn"
@@ -349,6 +353,7 @@ export function Canvas({
                     }
                   : undefined
               }
+              theme={theme}
             />
           ))}
 
@@ -364,13 +369,13 @@ export function Canvas({
               }}
             >
               <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>
-                けいさんノートへようこそ！
+                {settings?.theme === 'business' ? '計算ノートへようこそ！' : 'けいさんノートへようこそ！'}
               </h2>
               <p style={{ fontSize: '1rem' }}>
-                ひだりのでんたくで、けいさんしてみよう
+                {settings?.theme === 'business' ? '左の電卓で、計算してみましょう' : 'ひだりのでんたくで、けいさんしてみよう'}
               </p>
               <p style={{ fontSize: '0.875rem', marginTop: '0.5rem' }}>
-                けっかがマグネットになって、こっちにでてくるよ！
+                {settings?.theme === 'business' ? '結果がマグネットになって、こちらに表示されます！' : 'けっかがマグネットになって、こっちにでてくるよ！'}
               </p>
             </div>
           )}

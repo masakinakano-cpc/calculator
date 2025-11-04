@@ -20,6 +20,7 @@ export function useBlocks() {
   // Load blocks from database
   const loadBlocks = useCallback(async () => {
     try {
+      setLoading(true);
       const allBlocks = await db.getAllBlocks();
       setBlocks(allBlocks);
     } catch (error) {
@@ -224,12 +225,21 @@ export function useSettings() {
   // Load settings from database
   const loadSettings = useCallback(async () => {
     try {
+      setLoading(true);
       const userSettings = await db.getSettings();
       if (userSettings) {
         setSettings(userSettings);
+      } else {
+        // 設定が存在しない場合はデフォルト設定を設定
+        await db.initializeSettings();
+        const defaultSettings = await db.getSettings();
+        if (defaultSettings) {
+          setSettings(defaultSettings);
+        }
       }
     } catch (error) {
       console.error('Failed to load settings:', error);
+      // エラーが発生した場合でもローディングを解除
     } finally {
       setLoading(false);
     }
