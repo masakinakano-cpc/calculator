@@ -1558,7 +1558,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  margin: 0.3rem 0;
+  margin: 0.8rem 0;
 }
 
 .zodiac-label {
@@ -1597,6 +1597,8 @@ body {
   cursor: pointer;
   transition: all 0.2s;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .zodiac-calculate-btn:hover {
@@ -1641,12 +1643,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 0.5rem;
 }
 
 .zodiac-info {
   text-align: center;
   padding: 0.8rem;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   background: linear-gradient(135deg, rgba(199, 184, 234, 0.2) 0%, rgba(181, 167, 217, 0.2) 100%);
   border-radius: 0.4rem;
   border: 2px solid var(--magnet-purple);
@@ -1722,10 +1725,11 @@ body {
   transform: scale(1.0);
 }
 
-/* 12時位置から時計回りに配置 (半径75px、円盤150pxに対応) */
-/* 12時 = 子 (RAT) */
+/* 12時位置から時計回りに均等配置 (半径約85px、円盤150pxに対応、アイコン30px) */
+/* 中心を基準に各30度間隔で配置 */
+/* 12時 = 子 (RAT) - 0度: 真上 */
 .zodiac-rat {
-  top: -18px;
+  top: -15px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -1734,22 +1738,22 @@ body {
   transform: translateX(-50%) scale(1.1);
 }
 
-/* 1時 = 丑 (OX) */
+/* 1時 = 丑 (OX) - 30度: 右上 */
 .zodiac-ox {
-  top: -3px;
-  right: 3px;
+  top: 6px;
+  right: 6px;
 }
 
-/* 2時 = 寅 (TIGER) */
+/* 2時 = 寅 (TIGER) - 60度: 右上 */
 .zodiac-tiger {
-  top: 15px;
-  right: -12px;
+  top: 30px;
+  right: -10px;
 }
 
-/* 3時 = 卯 (RABBIT) */
+/* 3時 = 卯 (RABBIT) - 90度: 真右 */
 .zodiac-rabbit {
   top: 50%;
-  right: -18px;
+  right: -15px;
   transform: translateY(-50%);
 }
 
@@ -1757,21 +1761,21 @@ body {
   transform: translateY(-50%) scale(1.1);
 }
 
-/* 4時 = 辰 (DRAGON) */
+/* 4時 = 辰 (DRAGON) - 120度: 右下 */
 .zodiac-dragon {
-  bottom: 15px;
-  right: -12px;
+  bottom: 30px;
+  right: -10px;
 }
 
-/* 5時 = 巳 (SNAKE) */
+/* 5時 = 巳 (SNAKE) - 150度: 右下 */
 .zodiac-snake {
-  bottom: -3px;
-  right: 3px;
+  bottom: 6px;
+  right: 6px;
 }
 
-/* 6時 = 午 (HORSE) */
+/* 6時 = 午 (HORSE) - 180度: 真下 */
 .zodiac-horse {
-  bottom: -18px;
+  bottom: -15px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -1780,22 +1784,22 @@ body {
   transform: translateX(-50%) scale(1.1);
 }
 
-/* 7時 = 未 (SHEEP) */
+/* 7時 = 未 (SHEEP) - 210度: 左下 */
 .zodiac-sheep {
-  bottom: -3px;
-  left: 3px;
+  bottom: 6px;
+  left: 6px;
 }
 
-/* 8時 = 申 (MONKEY) */
+/* 8時 = 申 (MONKEY) - 240度: 左下 */
 .zodiac-monkey {
-  bottom: 15px;
-  left: -12px;
+  bottom: 30px;
+  left: -10px;
 }
 
-/* 9時 = 酉 (ROOSTER) */
+/* 9時 = 酉 (ROOSTER) - 270度: 真左 */
 .zodiac-rooster {
   top: 50%;
-  left: -18px;
+  left: -15px;
   transform: translateY(-50%);
 }
 
@@ -1803,16 +1807,16 @@ body {
   transform: translateY(-50%) scale(1.1);
 }
 
-/* 10時 = 戌 (DOG) */
+/* 10時 = 戌 (DOG) - 300度: 左上 */
 .zodiac-dog {
-  top: 15px;
-  left: -12px;
+  top: 30px;
+  left: -10px;
 }
 
-/* 11時 = 亥 (PIG) */
+/* 11時 = 亥 (PIG) - 330度: 左上 */
 .zodiac-pig {
-  top: -3px;
-  left: 3px;
+  top: 6px;
+  left: 6px;
 }
 
 /* 干支の年リスト */
@@ -1820,10 +1824,12 @@ body {
   background: linear-gradient(135deg, rgba(199, 184, 234, 0.15) 0%, rgba(181, 167, 217, 0.15) 100%);
   border: 2px solid var(--magnet-purple);
   border-radius: 0.5rem;
-  padding: 0.5rem;
-  margin: 0.3rem 0;
-  max-height: 180px;
+  padding: 0.75rem;
+  margin: 0.5rem 0 1.5rem 0;
+  max-height: 200px;
   overflow-y: auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .zodiac-years-header {
@@ -1866,19 +1872,20 @@ body {
 
 .zodiac-years-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.6rem;
 }
 
 .zodiac-year-item {
   background: rgba(255, 255, 255, 0.95);
   border: 2px solid var(--magnet-purple);
   border-radius: 0.4rem;
-  padding: 0.4rem;
+  padding: 0.5rem 0.4rem;
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: "M PLUS Rounded 1c", sans-serif;
   text-align: center;
+  min-width: 0;
 }
 
 .zodiac-year-item:hover {
