@@ -100,7 +100,7 @@ export function useBlocks() {
   /**
    * Update a C-Block's formula
    */
-  const updateBlock = useCallback(
+  const updateBlockFormula = useCallback(
     async (blockId: string, newFormula: string): Promise<boolean> => {
       try {
         const result = await dependencyGraph.updateBlockFormula(blockId, newFormula);
@@ -115,6 +115,21 @@ export function useBlocks() {
       } catch (error) {
         console.error('Failed to update block:', error);
         return false;
+      }
+    },
+    [loadBlocks]
+  );
+
+  /**
+   * Update a C-Block (generic update)
+   */
+  const updateBlock = useCallback(
+    async (blockId: string, updates: Partial<CBlock>): Promise<void> => {
+      try {
+        await db.updateBlock(blockId, updates);
+        await loadBlocks();
+      } catch (error) {
+        console.error('Failed to update block:', error);
       }
     },
     [loadBlocks]
@@ -190,6 +205,7 @@ export function useBlocks() {
     loading,
     createBlock,
     updateBlock,
+    updateBlockFormula,
     updateBlockPosition,
     updateBlockMemo,
     deleteBlock,

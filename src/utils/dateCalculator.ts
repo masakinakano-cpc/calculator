@@ -22,7 +22,7 @@ export function addDays(dateStr: string, days: number): string {
  */
 export function addMonths(dateStr: string, months: number): string {
   const date = new Date(dateStr);
-  date.setMonth(date.setMonth(date.getMonth() + months));
+  date.setMonth(date.getMonth() + months);
   return formatDate(date);
 }
 

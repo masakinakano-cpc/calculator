@@ -628,6 +628,7 @@ body {
   gap: 0.625rem;
   padding: 1.25rem;
   flex: 1;
+  position: relative;
 }
 
 .calc-btn {
@@ -1071,6 +1072,9 @@ body {
   .mode-btn {
     font-size: 0.75rem;
     padding: 0.5rem 0.75rem;
+    min-width: auto;
+    flex: 1 1 auto;
+    max-width: calc(50% - 0.25rem);
   }
 
   .help-btn,
@@ -1078,6 +1082,30 @@ body {
   .currency-toggle-btn {
     padding: 0.5rem 0.75rem;
     font-size: 0.875rem;
+  }
+
+  /* カートタブ */
+  .cart-tabs {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+
+  .cart-tab {
+    flex: 1 1 auto;
+    min-width: calc(33.333% - 0.5rem);
+    font-size: 0.8rem !important;
+    padding: 0.4rem 0.8rem !important;
+  }
+
+  /* 分数入力 */
+  .fraction-input-container {
+    padding: 0.75rem !important;
+    margin: 0.5rem 0.75rem !important;
+  }
+
+  .fraction-input-container input {
+    width: 70px !important;
+    font-size: 0.9rem !important;
   }
 
   /* メインコンテンツ */
@@ -1110,6 +1138,11 @@ body {
   .calculator-buttons {
     padding: 0.75rem;
     gap: 0.5rem;
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+
+  .calculator-buttons[style*="grid-template-columns: repeat(5"] {
+    grid-template-columns: repeat(5, 1fr) !important;
   }
 
   .calc-btn {
@@ -1229,6 +1262,43 @@ body {
   }
 }
 
+/* Blocklyカテゴリーボタンのスタイル（追加） */
+.blockly-category-すうがく .blocklyTreeLabel {
+  background: linear-gradient(135deg, #FF9800 0%, #FF6F00 100%);
+  color: white;
+  font-weight: bold;
+}
+
+.blockly-category-ひかく .blocklyTreeLabel {
+  background: linear-gradient(135deg, #03A9F4 0%, #0277BD 100%);
+  color: white;
+  font-weight: bold;
+}
+
+.blockly-category-じょうけん .blocklyTreeLabel {
+  background: linear-gradient(135deg, #FFEB3B 0%, #FBC02D 100%);
+  color: #000;
+  font-weight: bold;
+}
+
+.blockly-category-くりかえし .blocklyTreeLabel {
+  background: linear-gradient(135deg, #8BC34A 0%, #689F38 100%);
+  color: white;
+  font-weight: bold;
+}
+
+.blockly-category-もじ .blocklyTreeLabel {
+  background: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);
+  color: white;
+  font-weight: bold;
+}
+
+.blockly-category-リスト .blocklyTreeLabel {
+  background: linear-gradient(135deg, #673AB7 0%, #512DA8 100%);
+  color: white;
+  font-weight: bold;
+}
+
 /* さらに小さい画面（スマホ縦持ち） */
 @media (max-width: 480px) {
   .app-title {
@@ -1238,6 +1308,7 @@ body {
   .mode-btn {
     font-size: 0.7rem;
     padding: 0.4rem 0.6rem;
+    max-width: calc(50% - 0.25rem);
   }
 
   .calculator-value {
@@ -1247,6 +1318,7 @@ body {
   .calc-btn {
     font-size: 1.125rem;
     min-height: 45px;
+    padding: 0.875rem !important;
   }
 
   .c-block {
@@ -1259,6 +1331,44 @@ body {
 
   .canvas {
     min-height: 50vh;
+  }
+
+  .calculator-panel {
+    padding: 0.75rem !important;
+  }
+
+  .cart-tab {
+    font-size: 0.7rem !important;
+    padding: 0.35rem 0.6rem !important;
+    min-width: calc(33.333% - 0.4rem);
+  }
+
+  .date-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .date-tab {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.6rem;
+    white-space: nowrap;
+  }
+
+  .fortune-tab {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .zodiac-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .zodiac-tab {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.6rem;
+    white-space: nowrap;
   }
 }
 
@@ -1546,12 +1656,12 @@ body {
 /* 干支計算モード */
 .zodiac-calculator {
   padding: 1rem;
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  overflow-y: auto;
-  max-height: 100%;
+  overflow-y: visible;
+  min-height: 100%;
 }
 
 .zodiac-input-group {
@@ -1598,7 +1708,7 @@ body {
   transition: all 0.2s;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
   margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .zodiac-calculate-btn:hover {
@@ -1643,13 +1753,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 0.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
 }
 
 .zodiac-info {
   text-align: center;
   padding: 0.8rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
   background: linear-gradient(135deg, rgba(199, 184, 234, 0.2) 0%, rgba(181, 167, 217, 0.2) 100%);
   border-radius: 0.4rem;
   border: 2px solid var(--magnet-purple);
@@ -1725,11 +1837,11 @@ body {
   transform: scale(1.0);
 }
 
-/* 12時位置から時計回りに均等配置 (半径約85px、円盤150pxに対応、アイコン30px) */
-/* 中心を基準に各30度間隔で配置 */
+/* 12時位置から時計回りに均等配置 (半径95px、円盤150px、アイコン30px) */
+/* 中心(75px, 75px)から各30度間隔で正確に配置 */
 /* 12時 = 子 (RAT) - 0度: 真上 */
 .zodiac-rat {
-  top: -15px;
+  top: -20px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -1740,20 +1852,20 @@ body {
 
 /* 1時 = 丑 (OX) - 30度: 右上 */
 .zodiac-ox {
-  top: 6px;
-  right: 6px;
+  top: -3px;
+  right: 12px;
 }
 
 /* 2時 = 寅 (TIGER) - 60度: 右上 */
 .zodiac-tiger {
-  top: 30px;
-  right: -10px;
+  top: 32px;
+  right: -22px;
 }
 
 /* 3時 = 卯 (RABBIT) - 90度: 真右 */
 .zodiac-rabbit {
   top: 50%;
-  right: -15px;
+  right: -25px;
   transform: translateY(-50%);
 }
 
@@ -1763,19 +1875,19 @@ body {
 
 /* 4時 = 辰 (DRAGON) - 120度: 右下 */
 .zodiac-dragon {
-  bottom: 30px;
-  right: -10px;
+  bottom: 32px;
+  right: -22px;
 }
 
 /* 5時 = 巳 (SNAKE) - 150度: 右下 */
 .zodiac-snake {
-  bottom: 6px;
-  right: 6px;
+  bottom: -3px;
+  right: 12px;
 }
 
 /* 6時 = 午 (HORSE) - 180度: 真下 */
 .zodiac-horse {
-  bottom: -15px;
+  bottom: -20px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -1786,20 +1898,20 @@ body {
 
 /* 7時 = 未 (SHEEP) - 210度: 左下 */
 .zodiac-sheep {
-  bottom: 6px;
-  left: 6px;
+  bottom: -3px;
+  left: 12px;
 }
 
 /* 8時 = 申 (MONKEY) - 240度: 左下 */
 .zodiac-monkey {
-  bottom: 30px;
-  left: -10px;
+  bottom: 32px;
+  left: -22px;
 }
 
 /* 9時 = 酉 (ROOSTER) - 270度: 真左 */
 .zodiac-rooster {
   top: 50%;
-  left: -15px;
+  left: -25px;
   transform: translateY(-50%);
 }
 
@@ -1809,14 +1921,14 @@ body {
 
 /* 10時 = 戌 (DOG) - 300度: 左上 */
 .zodiac-dog {
-  top: 30px;
-  left: -10px;
+  top: 32px;
+  left: -22px;
 }
 
 /* 11時 = 亥 (PIG) - 330度: 左上 */
 .zodiac-pig {
-  top: 6px;
-  left: 6px;
+  top: -3px;
+  left: 12px;
 }
 
 /* 干支の年リスト */
@@ -1824,12 +1936,13 @@ body {
   background: linear-gradient(135deg, rgba(199, 184, 234, 0.15) 0%, rgba(181, 167, 217, 0.15) 100%);
   border: 2px solid var(--magnet-purple);
   border-radius: 0.5rem;
-  padding: 0.75rem;
-  margin: 0.5rem 0 1.5rem 0;
-  max-height: 200px;
+  padding: 1rem;
+  margin: 0.5rem 0 2rem 0;
+  max-height: 400px;
   overflow-y: auto;
   width: 100%;
   box-sizing: border-box;
+  min-height: 200px;
 }
 
 .zodiac-years-header {
@@ -1872,8 +1985,9 @@ body {
 
 .zodiac-years-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.8rem;
+  padding: 0.5rem 0;
 }
 
 .zodiac-year-item {
@@ -2462,6 +2576,279 @@ body {
 }
 
 /* ============================================
+   DATE CALCULATOR STYLES (日付計算)
+   ============================================ */
+
+.date-calculator {
+  padding: 1rem;
+  padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: visible;
+  min-height: 100%;
+}
+
+/* Date Tabs */
+.date-tabs {
+  display: flex;
+  gap: 0.3rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  min-height: 48px;
+  padding-bottom: 0.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.date-tab {
+  flex: 1;
+  min-width: 70px;
+  padding: 0.5rem 0.3rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: #000000;
+}
+
+.date-tab:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
+}
+
+.date-tab.active {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  border-color: var(--chalk-pink);
+  color: #000000;
+  box-shadow: 0 4px 15px rgba(168, 237, 234, 0.4);
+}
+
+/* Date Tab Content */
+.date-tab-content {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.date-tab-content h3 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--chalk-yellow);
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Date Input Section */
+.date-input-section {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.date-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.8rem;
+}
+
+.date-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--chalk-white);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.date-input {
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  border: 3px solid var(--wood-brown);
+  border-radius: 0.5rem;
+  background: var(--chalk-white);
+  color: #000000;
+  text-align: center;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: var(--magnet-purple);
+  box-shadow: 0 0 0 3px rgba(199, 184, 234, 0.3);
+}
+
+.date-amount-input {
+  flex: 1;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  border: 3px solid var(--wood-brown);
+  border-radius: 0.5rem;
+  background: var(--chalk-white);
+  color: #000000;
+  text-align: center;
+}
+
+.date-amount-input:focus {
+  outline: none;
+  border-color: var(--magnet-purple);
+  box-shadow: 0 0 0 3px rgba(199, 184, 234, 0.3);
+}
+
+.date-unit-select {
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  border: 3px solid var(--wood-brown);
+  border-radius: 0.5rem;
+  background: var(--chalk-white);
+  color: #000000;
+  cursor: pointer;
+}
+
+.date-unit-select:focus {
+  outline: none;
+  border-color: var(--magnet-purple);
+  box-shadow: 0 0 0 3px rgba(199, 184, 234, 0.3);
+}
+
+/* Date Operation Selector */
+.date-operation-selector {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.date-op-btn {
+  flex: 1;
+  padding: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.9);
+  color: #000000;
+  border: 2px solid var(--wood-brown);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.date-op-btn:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
+}
+
+.date-op-btn.active {
+  background: linear-gradient(135deg, var(--magnet-blue) 0%, #3eb8b0 100%);
+  color: white;
+  border-color: var(--magnet-blue);
+}
+
+.date-calculate-btn {
+  width: 100%;
+  padding: 0.7rem;
+  font-size: 0.88rem;
+  font-weight: 800;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  background: linear-gradient(135deg, var(--magnet-purple) 0%, #b5a7d9 100%);
+  color: white;
+  border: 2px solid var(--wood-brown);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.date-calculate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.date-calculate-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Date Result */
+.date-result {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 0.5rem;
+  border: 2px solid var(--magnet-purple);
+}
+
+.date-result h4 {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--magnet-purple);
+  margin-bottom: 0.5rem;
+}
+
+.date-result p {
+  font-size: 0.85rem;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 0.3rem;
+}
+
+.date-result pre {
+  font-size: 0.85rem;
+  color: #000000;
+  line-height: 1.6;
+  margin: 0;
+  font-family: 'M PLUS Rounded 1c', 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+}
+
+.grade-info {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(199, 184, 234, 0.3);
+}
+
+.grade-info p {
+  font-size: 0.8rem;
+  color: #555;
+  margin-bottom: 0.3rem;
+}
+
+.grade-info strong {
+  color: var(--magnet-purple);
+}
+
+/* Event Buttons */
+.event-btn {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.9);
+  color: #000000;
+  border: 2px solid var(--magnet-purple);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.event-btn:hover {
+  background: rgba(199, 184, 234, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(199, 184, 234, 0.4);
+}
+
+.event-btn:active {
+  transform: translateY(0);
+}
+
+/* ============================================
    FORTUNE CALCULATOR STYLES (運勢占い)
    ============================================ */
 
@@ -2504,7 +2891,7 @@ body {
 .fortune-tab.active {
   background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
   border-color: var(--chalk-pink);
-  color: var(--chalk-purple);
+  color: #000000;
   box-shadow: 0 4px 15px rgba(168, 237, 234, 0.4);
 }
 
@@ -2546,7 +2933,7 @@ body {
   font-size: 0.9rem;
   text-align: center;
   font-weight: bold;
-  color: var(--chalk-purple);
+  color: #000000;
 }
 
 .fortune-input:focus {
@@ -2592,31 +2979,34 @@ body {
 
 /* Fortune Cards */
 .fortune-card {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 12px;
   padding: 1rem;
   margin-bottom: 1rem;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.5);
   transition: all 0.3s ease;
 }
 
 .fortune-card:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.95);
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
 }
 
 .fortune-card h4 {
   font-size: 0.9rem;
   margin-bottom: 0.8rem;
-  color: var(--chalk-pink);
+  color: #8B008B;
   line-height: 1.4;
+  font-weight: 800;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .fortune-card h5 {
   font-size: 0.8rem;
   margin-bottom: 0.5rem;
-  color: var(--chalk-blue);
+  color: #0066CC;
+  font-weight: 700;
 }
 
 .fortune-card p {
@@ -2668,6 +3058,8 @@ body {
 .weekday-badge {
   color: white;
   font-weight: bold;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%) !important;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
 .zodiac-badge {
@@ -2688,7 +3080,7 @@ body {
 }
 
 .fortune-summary {
-  background: linear-gradient(135deg, rgba(168, 237, 234, 0.2) 0%, rgba(254, 214, 227, 0.2) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.85) 100%);
   border-radius: 12px;
   padding: 1rem;
   border: 2px solid var(--chalk-yellow);
@@ -2698,7 +3090,9 @@ body {
 .fortune-summary h4 {
   font-size: 1rem;
   margin-bottom: 0.7rem;
-  color: var(--chalk-yellow);
+  color: #DAA520;
+  font-weight: 800;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .fortune-summary p {

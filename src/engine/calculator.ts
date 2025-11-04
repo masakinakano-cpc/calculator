@@ -11,7 +11,7 @@ Decimal.set({ precision: 50 });
 
 /**
  * Evaluate a mathematical expression with proper operator precedence
- * Supports: +, -, *, /, %, parentheses
+ * Supports: +, -, *, /, %, ^ (power), parentheses
  */
 export function evaluate(expression: string): Decimal {
   // Remove all whitespace
@@ -46,7 +46,7 @@ function parseExpression(expr: string, ctx: { pos: number }): Decimal {
  * Parse term (handles *, /, %)
  */
 function parseTerm(expr: string, ctx: { pos: number }): Decimal {
-  let result = parseFactor(expr, ctx);
+  let result = parsePower(expr, ctx);
 
   while (ctx.pos < expr.length) {
     const op = expr[ctx.pos];
@@ -68,6 +68,22 @@ function parseTerm(expr: string, ctx: { pos: number }): Decimal {
     } else {
       break;
     }
+  }
+
+  return result;
+}
+
+/**
+ * Parse power (handles ^ (power), highest precedence)
+ */
+function parsePower(expr: string, ctx: { pos: number }): Decimal {
+  let result = parseFactor(expr, ctx);
+
+  while (ctx.pos < expr.length && expr[ctx.pos] === '^') {
+    ctx.pos++;
+    const right = parseFactor(expr, ctx);
+    // Decimal.js uses toPower for exponentiation
+    result = result.toPower(right);
   }
 
   return result;

@@ -21,6 +21,7 @@ function App() {
     createBlock,
     updateBlockPosition,
     updateBlockMemo,
+    updateBlock,
     deleteBlock,
   } = useBlocks();
   const { settings, loading: settingsLoading, updateSettings } = useSettings();
@@ -123,6 +124,12 @@ function App() {
           >
             うらない
           </button>
+          <button
+            className={`mode-btn ${mode === BlockType.CART ? 'active' : ''}`}
+            onClick={() => handleModeChange(BlockType.CART)}
+          >
+            カート
+          </button>
         </div>
 
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
@@ -197,10 +204,12 @@ function App() {
             <div className="help-section">
               <h3>🎨 モードのせつめい</h3>
               <ul>
-                <li><strong>ふつうのけいさん：</strong>すうじのけいさんができるよ</li>
-                <li><strong>日づけ：</strong>じゅんびちゅう</li>
-                <li><strong>十二支：</strong>じゅんびちゅう</li>
-                <li><strong>たんい：</strong>じゅんびちゅう</li>
+                <li><strong>ふつうのけいさん：</strong>すうじのけいさんができるよ。分数入力やべき乗も使えるよ</li>
+                <li><strong>日づけ：</strong>日付の計算、年齢計算、カレンダー表示、日本の文化などができるよ</li>
+                <li><strong>十二支：</strong>生まれ年から干支を調べたり、相性をチェックしたりできるよ</li>
+                <li><strong>たんい：</strong>長さ、重さ、かさ、時間、温度、お金の単位を変換できるよ</li>
+                <li><strong>カート：</strong>ショッピングリストを作って、合計金額や消費税を計算できるよ</li>
+                <li><strong>うらない：</strong>星座、数秘術、曜日占い、おみくじなど、いろいろな占いができるよ</li>
               </ul>
             </div>
           </div>
@@ -231,6 +240,9 @@ function App() {
           onUpdateBlockMemo={updateBlockMemo}
           onDeleteBlock={handleDeleteBlock}
           onCondenseAll={handleCondenseAll}
+          onUpdateBlockGroup={async (blockId, groupId) => {
+            await updateBlock(blockId, { groupId });
+          }}
           settings={settings}
         />
       </main>

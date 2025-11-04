@@ -60,6 +60,9 @@ export function CBlockComponent({
 
   const blockColor = getBlockTypeColor(block.type);
 
+  // グループ化されている場合、視覚的な表示を追加
+  const hasGroup = block.groupId !== undefined;
+
   const handleMemoSave = () => {
     onUpdateMemo(block.blockId, memoValue);
     setEditingMemo(false);
@@ -80,12 +83,34 @@ export function CBlockComponent({
   return (
     <div
       ref={setNodeRef}
-      className={`c-block ${isDragging ? 'dragging' : ''} ${selected ? 'selected' : ''}`}
-      style={style}
+      className={`c-block ${isDragging ? 'dragging' : ''} ${selected ? 'selected' : ''} ${hasGroup ? 'grouped' : ''}`}
+      style={{
+        ...style,
+        border: hasGroup ? '2px solid #ffd700' : undefined,
+        boxShadow: hasGroup ? '0 0 8px rgba(255, 215, 0, 0.5)' : undefined,
+      }}
       onClick={(e) => onSelect(block.blockId, e.ctrlKey || e.metaKey)}
       onDragStart={handleDragStart}
       draggable
     >
+      {hasGroup && (
+        <div style={{
+          position: 'absolute',
+          top: '-8px',
+          right: '-8px',
+          background: '#ffd700',
+          borderRadius: '50%',
+          width: '20px',
+          height: '20px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '12px',
+          zIndex: 10,
+        }}>
+          📦
+        </div>
+      )}
       <div
         className="c-block-header"
         style={{ backgroundColor: blockColor }}

@@ -48,6 +48,167 @@ export function BlocklyPlayground({ onCreateBlock }: BlocklyPlaygroundProps) {
         },
         {
           kind: 'category',
+          name: 'すうがく',
+          colour: '#FF9800',
+          contents: [
+            {
+              kind: 'block',
+              type: 'math_round',
+            },
+            {
+              kind: 'block',
+              type: 'math_single',
+              fields: {
+                OP: 'ROOT',
+              },
+            },
+            {
+              kind: 'block',
+              type: 'math_trig',
+              fields: {
+                OP: 'SIN',
+              },
+            },
+            {
+              kind: 'block',
+              type: 'math_constant',
+              fields: {
+                CONSTANT: 'PI',
+              },
+            },
+          ],
+        },
+        {
+          kind: 'category',
+          name: 'ひかく',
+          colour: '#03A9F4',
+          contents: [
+            {
+              kind: 'block',
+              type: 'logic_compare',
+            },
+            {
+              kind: 'block',
+              type: 'logic_operation',
+            },
+            {
+              kind: 'block',
+              type: 'logic_negate',
+            },
+            {
+              kind: 'block',
+              type: 'logic_boolean',
+            },
+          ],
+        },
+        {
+          kind: 'category',
+          name: 'じょうけん',
+          colour: '#FFEB3B',
+          contents: [
+            {
+              kind: 'block',
+              type: 'controls_if',
+            },
+            {
+              kind: 'block',
+              type: 'logic_ternary',
+            },
+          ],
+        },
+        {
+          kind: 'category',
+          name: 'くりかえし',
+          colour: '#8BC34A',
+          contents: [
+            {
+              kind: 'block',
+              type: 'controls_repeat_ext',
+              inputs: {
+                TIMES: {
+                  shadow: {
+                    type: 'math_number',
+                    fields: { NUM: 10 },
+                  },
+                },
+              },
+            },
+            {
+              kind: 'block',
+              type: 'controls_whileUntil',
+            },
+            {
+              kind: 'block',
+              type: 'controls_for',
+              inputs: {
+                FROM: {
+                  shadow: { type: 'math_number', fields: { NUM: 1 } },
+                },
+                TO: {
+                  shadow: { type: 'math_number', fields: { NUM: 10 } },
+                },
+                BY: {
+                  shadow: { type: 'math_number', fields: { NUM: 1 } },
+                },
+              },
+            },
+          ],
+        },
+        {
+          kind: 'category',
+          name: 'もじ',
+          colour: '#E91E63',
+          contents: [
+            {
+              kind: 'block',
+              type: 'text',
+            },
+            {
+              kind: 'block',
+              type: 'text_join',
+            },
+            {
+              kind: 'block',
+              type: 'text_length',
+            },
+            {
+              kind: 'block',
+              type: 'text_isEmpty',
+            },
+          ],
+        },
+        {
+          kind: 'category',
+          name: 'リスト',
+          colour: '#673AB7',
+          contents: [
+            {
+              kind: 'block',
+              type: 'lists_create_with',
+              extraState: {
+                itemCount: 3,
+              },
+            },
+            {
+              kind: 'block',
+              type: 'lists_length',
+            },
+            {
+              kind: 'block',
+              type: 'lists_isEmpty',
+            },
+            {
+              kind: 'block',
+              type: 'lists_indexOf',
+            },
+            {
+              kind: 'block',
+              type: 'lists_getIndex',
+            },
+          ],
+        },
+        {
+          kind: 'category',
           name: 'へんすう',
           colour: '#A55C9C',
           contents: [

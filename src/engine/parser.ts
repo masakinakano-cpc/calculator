@@ -48,8 +48,8 @@ export function tokenize(formula: string): Token[] {
       continue;
     }
 
-    // Operators
-    if (['+', '-', '*', '/', '%'].includes(char)) {
+    // Operators (including ^ for power)
+    if (['+', '-', '*', '/', '%', '^'].includes(char)) {
       tokens.push({ type: TokenType.OPERATOR, value: char });
       i++;
       continue;

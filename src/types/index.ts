@@ -10,7 +10,6 @@ export enum BlockType {
   STANDARD = 'STANDARD',      // Standard arithmetic calculator
   DATE = 'DATE',              // Date/period calculations
   ZODIAC = 'ZODIAC',          // Chinese zodiac calculations
-  AGE = 'AGE',                // Age calculations
   UNIT = 'UNIT',              // Unit conversions
   CART = 'CART',              // Shopping cart/list functionality
   FORTUNE = 'FORTUNE',        // Comprehensive fortune telling
@@ -63,6 +62,7 @@ export interface CBlock {
   createdAt: number;                  // Timestamp of creation
   updatedAt: number;                  // Timestamp of last update
   metadata?: BlockMetadata;           // Type-specific additional data
+  groupId?: string;                   // Optional group ID for grouping blocks
 }
 
 /**

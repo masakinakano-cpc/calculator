@@ -21,6 +21,7 @@ interface CanvasProps {
   onUpdateBlockMemo: (blockId: string, memo: string) => void;
   onDeleteBlock: (blockId: string) => void;
   onCondenseAll: () => void;
+  onUpdateBlockGroup?: (blockId: string, groupId: string | undefined) => void;
   settings: UserSettings | null;
 }
 
@@ -30,6 +31,7 @@ export function Canvas({
   onUpdateBlockMemo,
   onDeleteBlock,
   onCondenseAll,
+  onUpdateBlockGroup,
   settings,
 }: CanvasProps) {
   const [selectedBlockIds, setSelectedBlockIds] = useState<Set<string>>(new Set());
@@ -140,6 +142,43 @@ export function Canvas({
     setSelectedBlockIds(new Set());
   };
 
+  const handleGroupSelected = () => {
+    if (selectedBlockIds.size < 2 || !onUpdateBlockGroup) {
+      return;
+    }
+
+    const groupId = crypto.randomUUID();
+    selectedBlockIds.forEach(blockId => {
+      onUpdateBlockGroup(blockId, groupId);
+    });
+    setSelectedBlockIds(new Set());
+  };
+
+  const handleUngroupSelected = () => {
+    if (selectedBlockIds.size === 0 || !onUpdateBlockGroup) {
+      return;
+    }
+
+    selectedBlockIds.forEach(blockId => {
+      onUpdateBlockGroup(blockId, undefined);
+    });
+    setSelectedBlockIds(new Set());
+  };
+
+  // 選択中のブロックが同じグループに属しているかチェック
+  const selectedBlocksGroupId = (() => {
+    if (selectedBlockIds.size === 0) return null;
+    const selectedBlocks = blocks.filter(b => selectedBlockIds.has(b.blockId));
+    if (selectedBlocks.length === 0) return null;
+    const firstGroupId = selectedBlocks[0].groupId;
+    if (!firstGroupId) return null;
+    // すべて同じグループIDかチェック
+    if (selectedBlocks.every(b => b.groupId === firstGroupId)) {
+      return firstGroupId;
+    }
+    return null;
+  })();
+
   // Render dependency lines
   const renderDependencyLines = () => {
     if (!settings?.showDependencyLines || selectedBlockIds.size === 0) {
@@ -243,6 +282,27 @@ export function Canvas({
           <div className="toolbar-info">
             {selectedBlockIds.size}この マグネット をせんたくちゅう
           </div>
+          {selectedBlockIds.size >= 2 && onUpdateBlockGroup && (
+            <>
+              {selectedBlocksGroupId ? (
+                <button
+                  className="toolbar-btn"
+                  onClick={handleUngroupSelected}
+                  title="グループを解除"
+                >
+                  📦 グループかいじょ
+                </button>
+              ) : (
+                <button
+                  className="toolbar-btn"
+                  onClick={handleGroupSelected}
+                  title="選択したブロックをグループ化"
+                >
+                  📦 グループか
+                </button>
+              )}
+            </>
+          )}
           <button
             className="toolbar-btn toolbar-btn-danger"
             onClick={handleDeleteSelected}
