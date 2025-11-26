@@ -733,71 +733,71 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
 
       {mode === BlockType.STANDARD && (
         <>
-          <div className="calculator-buttons">
-            <button className="calc-btn clear" onClick={handleClear}>
-              C
-            </button>
-            <button className="calc-btn" onClick={handleNegate}>
-              +/-
-            </button>
-            <button className="calc-btn" onClick={handlePercentage}>
-              %
-            </button>
-            <button className="calc-btn operator" onClick={() => handleOperatorClick('/')}>
-              ÷
-            </button>
+        <div className="calculator-buttons">
+          <button className="calc-btn clear" onClick={handleClear}>
+            C
+          </button>
+          <button className="calc-btn" onClick={handleNegate}>
+            +/-
+          </button>
+          <button className="calc-btn" onClick={handlePercentage}>
+            %
+          </button>
+          <button className="calc-btn operator" onClick={() => handleOperatorClick('/')}>
+            ÷
+          </button>
 
-            <button className="calc-btn" onClick={() => handleNumberClick('7')}>
-              7
-            </button>
-            <button className="calc-btn" onClick={() => handleNumberClick('8')}>
-              8
-            </button>
-            <button className="calc-btn" onClick={() => handleNumberClick('9')}>
-              9
-            </button>
-            <button className="calc-btn operator" onClick={() => handleOperatorClick('*')}>
-              ×
-            </button>
+          <button className="calc-btn" onClick={() => handleNumberClick('7')}>
+            7
+          </button>
+          <button className="calc-btn" onClick={() => handleNumberClick('8')}>
+            8
+          </button>
+          <button className="calc-btn" onClick={() => handleNumberClick('9')}>
+            9
+          </button>
+          <button className="calc-btn operator" onClick={() => handleOperatorClick('*')}>
+            ×
+          </button>
 
-            <button className="calc-btn" onClick={() => handleNumberClick('4')}>
-              4
-            </button>
-            <button className="calc-btn" onClick={() => handleNumberClick('5')}>
-              5
-            </button>
-            <button className="calc-btn" onClick={() => handleNumberClick('6')}>
-              6
-            </button>
-            <button className="calc-btn operator" onClick={() => handleOperatorClick('-')}>
-              -
-            </button>
+          <button className="calc-btn" onClick={() => handleNumberClick('4')}>
+            4
+          </button>
+          <button className="calc-btn" onClick={() => handleNumberClick('5')}>
+            5
+          </button>
+          <button className="calc-btn" onClick={() => handleNumberClick('6')}>
+            6
+          </button>
+          <button className="calc-btn operator" onClick={() => handleOperatorClick('-')}>
+            -
+          </button>
 
-            <button className="calc-btn" onClick={() => handleNumberClick('1')}>
-              1
-            </button>
-            <button className="calc-btn" onClick={() => handleNumberClick('2')}>
-              2
-            </button>
-            <button className="calc-btn" onClick={() => handleNumberClick('3')}>
-              3
-            </button>
-            <button className="calc-btn operator" onClick={() => handleOperatorClick('+')}>
-              +
-            </button>
+          <button className="calc-btn" onClick={() => handleNumberClick('1')}>
+            1
+          </button>
+          <button className="calc-btn" onClick={() => handleNumberClick('2')}>
+            2
+          </button>
+          <button className="calc-btn" onClick={() => handleNumberClick('3')}>
+            3
+          </button>
+          <button className="calc-btn operator" onClick={() => handleOperatorClick('+')}>
+            +
+          </button>
 
             <button className="calc-btn" onClick={() => handleNumberClick('0')} style={{ gridColumn: 'span 2' }}>
-              0
-            </button>
-            <button className="calc-btn" onClick={handleDecimal}>
-              .
-            </button>
-            <button className="calc-btn" onClick={handleBackspace}>
-              ⌫
-            </button>
-            <button className="calc-btn equals" onClick={handleEquals}>
-              =
-            </button>
+            0
+          </button>
+          <button className="calc-btn" onClick={handleDecimal}>
+            .
+          </button>
+          <button className="calc-btn" onClick={handleBackspace}>
+            ⌫
+          </button>
+          <button className="calc-btn equals" onClick={handleEquals}>
+            =
+          </button>
           </div>
           <div style={{
             display: 'flex',
@@ -965,7 +965,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
             </button>
             <button
               onClick={() => {
-                if (confirm('すべての計算履歴を削除しますか？')) {
+                if (confirm(getThemeText(theme, 'DELETE_ALL_CONFIRM'))) {
                   clearStandardCalculationHistory();
                   setShowStandardHistory(false);
                 }
@@ -979,7 +979,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                 cursor: 'pointer',
               }}
             >
-              すべて削除
+              {getThemeText(theme, 'DELETE_ALL')}
             </button>
           </div>
           <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #ddd' }}>
@@ -1099,7 +1099,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                             fontSize: '0.75rem',
                           }}
                         >
-                          削除
+                          {getThemeText(theme, 'CANVAS_DELETE')}
                         </button>
                       </div>
                     </div>
@@ -1288,7 +1288,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                           className="date-amount-input"
                           value={dateAmount}
                           onChange={(e) => setDateAmount(e.target.value)}
-                          placeholder={theme === 'kids' ? 'すうじ' : '数値'}
+                          placeholder={getThemeText(theme, 'DATE_NUMBER_INPUT')}
                           style={{ width: '80px' }}
                         />
                         <select
@@ -1297,9 +1297,9 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                           onChange={(e) => setDateUnit(e.target.value as 'days' | 'weeks' | 'months' | 'years')}
                         >
                           <option value="days">{getThemeText(theme, 'DATE_UNIT_DAYS')}</option>
-                          <option value="weeks">{theme === 'kids' ? 'しゅう' : '週'}</option>
-                          <option value="months">{theme === 'kids' ? 'げつ' : '月'}</option>
-                          <option value="years">{theme === 'kids' ? 'ねん' : '年'}</option>
+                          <option value="weeks">{getThemeText(theme, 'DATE_UNIT_WEEKS_TEXT')}</option>
+                          <option value="months">{getThemeText(theme, 'DATE_UNIT_MONTHS_TEXT')}</option>
+                          <option value="years">{getThemeText(theme, 'DATE_YEAR')}</option>
                         </select>
                       </div>
                       <div style={{ fontSize: '0.8rem', marginTop: '0.3rem', color: theme === 'kids' ? 'rgba(255,255,255,0.8)' : '#666' }}>
@@ -1409,7 +1409,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                           formula,
                         });
                         const resultFormats = formatDaysMultiple(Math.abs(diff.totalDays));
-                        setDateResult(`${diff.totalDays}${getThemeText(theme, 'DATE_DAY')} (${diff.years}${getThemeText(theme, 'DATE_YEAR')}${diff.months}${getThemeText(theme, 'DATE_MONTH')}${diff.days}${getThemeText(theme, 'DATE_DAY')}、${diff.weeks}${theme === 'kids' ? 'しゅう' : '週'})\n\n複数形式: ${resultFormats.full}`);
+                        setDateResult(`${diff.totalDays}${getThemeText(theme, 'DATE_DAY')} (${diff.years}${getThemeText(theme, 'DATE_YEAR')}${diff.months}${getThemeText(theme, 'DATE_MONTH')}${diff.days}${getThemeText(theme, 'DATE_DAY')}、${diff.weeks}${getThemeText(theme, 'DATE_UNIT_WEEKS_TEXT')})\n\n複数形式: ${resultFormats.full}`);
                         setError(null);
                       }}
                     >
@@ -1542,7 +1542,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                               <>
                                 {/* 年の円グラフ */}
                                 <div style={{ textAlign: 'center' }}>
-                                  <div style={{ fontSize: '0.8rem', color: '#000', marginBottom: '0.5rem' }}>ねんのけいか</div>
+                                  <div style={{ fontSize: '0.8rem', color: '#000', marginBottom: '0.5rem' }}>{getThemeText(theme, 'DATE_YEAR_PROGRESS').replace('%', '')}</div>
                                   <svg width="120" height="120" style={{ transform: 'rotate(-90deg)' }}>
                                     <circle
                                       cx="60"
@@ -1733,7 +1733,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                     const days = daysUntilAnniversary(date1);
                     const formula = `${formatDateJapanese(date1)} まであと ${days}にち`;
                     onCreateBlock(formula);
-                    setDateResult(`${getThemeText(theme, 'DATE_ANNIVERSARY_DAYS_UNTIL').replace('%', String(days))} (${Math.floor(days / 7)}${theme === 'kids' ? 'しゅう' : '週'}${days % 7}${getThemeText(theme, 'DATE_DAY')})`);
+                    setDateResult(`${getThemeText(theme, 'DATE_ANNIVERSARY_DAYS_UNTIL').replace('%', String(days))} (${Math.floor(days / 7)}${getThemeText(theme, 'DATE_UNIT_WEEKS_TEXT')}${days % 7}${getThemeText(theme, 'DATE_DAY')})`);
                     setError(null);
                   }}
                 >
@@ -1785,7 +1785,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
               <h3>📚 {getThemeText(theme, 'DATE_TRIVIA')}</h3>
               <div className="date-input-section">
                 <div className="date-input-group">
-                  <label className="date-label">ひづけ</label>
+                  <label className="date-label">{getThemeText(theme, 'DATE_LABEL')}</label>
                   <input
                     type="date"
                     className="date-input"
@@ -1834,7 +1834,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
               <h3>🎌 {getThemeText(theme, 'DATE_CULTURE')}</h3>
               <div className="date-input-section">
                 <div className="date-input-group">
-                  <label className="date-label">ひづけ</label>
+                  <label className="date-label">{getThemeText(theme, 'DATE_LABEL')}</label>
                   <input
                     type="date"
                     className="date-input"
@@ -1896,7 +1896,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
               <h3>📅 {getThemeText(theme, 'DATE_CALENDAR')}</h3>
               <div className="date-input-section">
                 <div className="date-input-group">
-                  <label className="date-label">ねんがつ</label>
+                  <label className="date-label">{getThemeText(theme, 'DATE_LABEL_YEAR_MONTH')}</label>
                   <input
                     type="month"
                     className="date-input"
@@ -2005,9 +2005,9 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
               <div className="date-input-section" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {/* 営業日計算 */}
                 <div>
-                  <h4>営業日けいさん</h4>
+                  <h4>{getThemeText(theme, 'DATE_BUSINESS_DAYS_TITLE')}</h4>
                   <div className="date-input-group">
-                    <label className="date-label">ひづけ</label>
+                    <label className="date-label">{getThemeText(theme, 'DATE_LABEL')}</label>
                     <input
                       type="date"
                       className="date-input"
@@ -2039,7 +2039,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                       setError(null);
                     }}
                   >
-                    営業日をけいさん
+                    {getThemeText(theme, 'DATE_BUSINESS_DAYS_CALC')}
                   </button>
                 </div>
 
@@ -2047,7 +2047,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                 <div>
                   <h4>{getThemeText(theme, 'DATE_WEEK_POSITION')}</h4>
                   <div className="date-input-group">
-                    <label className="date-label">ひづけ</label>
+                    <label className="date-label">{getThemeText(theme, 'DATE_LABEL')}</label>
                     <input
                       type="date"
                       className="date-input"
@@ -2069,15 +2069,15 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                       setError(null);
                     }}
                   >
-                    しゅうのばしょをけいさん
+                    {getThemeText(theme, 'DATE_WEEK_POSITION_CALC')}
                   </button>
                 </div>
 
                 {/* 何年前は何年？ */}
                 <div>
-                  <h4>なんねんまえはなんねん？</h4>
+                  <h4>{getThemeText(theme, 'DATE_YEARS_BEFORE')}</h4>
                   <div className="date-input-group">
-                    <label className="date-label">ねんすう</label>
+                    <label className="date-label">{getThemeText(theme, 'DATE_LABEL_YEARS')}</label>
                     <input
                       type="number"
                       className="date-input"
@@ -2100,15 +2100,15 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                       setError(null);
                     }}
                   >
-                    ねんをけいさん
+                    {getThemeText(theme, 'DATE_YEARS_BEFORE_CALC')}
                   </button>
                 </div>
 
                 {/* 複数日付の比較（3つ以上対応） */}
                 <div>
-                  <h4>ふくすうひづけのひかく（3つ以上）</h4>
+                  <h4>{getThemeText(theme, 'DATE_COMPARE_TITLE')}</h4>
                   <div className="date-input-group">
-                    <label className="date-label">ひづけ1</label>
+                    <label className="date-label">{getThemeText(theme, 'DATE_LABEL_DATE1')}</label>
                     <input
                       type="date"
                       className="date-input"
@@ -2117,7 +2117,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                     />
                   </div>
                   <div className="date-input-group">
-                    <label className="date-label">ひづけ2</label>
+                    <label className="date-label">{getThemeText(theme, 'DATE_LABEL_DATE2')}</label>
                     <input
                       type="date"
                       className="date-input"
@@ -2126,7 +2126,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                     />
                   </div>
                   <div className="date-input-group">
-                    <label className="date-label">ひづけ3（かぞく・ともだち）</label>
+                    <label className="date-label">{getThemeText(theme, 'DATE_LABEL_DATE3')}</label>
                     <input
                       type="date"
                       className="date-input"
@@ -2153,7 +2153,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                         let result = `最も古い: ${formatDateJapanese(comparison.oldest)}\n最も新しい: ${formatDateJapanese(comparison.newest)}\n\n年齢差（詳細）:\n`;
                         ageComparison.forEach((item, idx) => {
                           const age = item.age;
-                          result += `${theme === 'kids' ? 'ひづけ' : '日付'}${idx + 1} (${formatDateJapanese(item.date)}): ${age.years}${getThemeText(theme, 'DATE_AGE_YEARS')}${age.months}${getThemeText(theme, 'DATE_AGE_MONTHS')}${age.days}${getThemeText(theme, 'DATE_AGE_DAYS')} (${age.totalDays}${getThemeText(theme, 'DATE_AGE_DAYS')})\n`;
+                          result += `${getThemeText(theme, 'DATE_LABEL')}${idx + 1} (${formatDateJapanese(item.date)}): ${age.years}${getThemeText(theme, 'DATE_AGE_YEARS')}${age.months}${getThemeText(theme, 'DATE_AGE_MONTHS')}${age.days}${getThemeText(theme, 'DATE_AGE_DAYS')} (${age.totalDays}${getThemeText(theme, 'DATE_AGE_DAYS')})\n`;
                           if (idx > 0) {
                             result += `  → 最も若い人との差: ${item.difference.years}ねん${item.difference.months}かげつ${item.difference.days}にち\n`;
                           }
@@ -2213,19 +2213,19 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                         });
                         setError(null);
                       } catch (err) {
-                        setError('ひかくできませんでした');
+                        setError(getThemeText(theme, 'DATE_COMPARE_ERROR'));
                       }
                     }}
                   >
-                    ひかくする
+                    {getThemeText(theme, 'DATE_COMPARE_CALC')}
                   </button>
                 </div>
 
                 {/* 営業時間計算（カスタム営業時間対応） */}
                 <div>
-                  <h4>営業時間けいさん（カスタム設定）</h4>
+                  <h4>{getThemeText(theme, 'DATE_BUSINESS_HOURS_TITLE')}</h4>
                   <div className="date-input-group">
-                    <label className="date-label">はじまりのひづけ</label>
+                    <label className="date-label">{getThemeText(theme, 'DATE_LABEL_START')}</label>
                     <input
                       type="date"
                       className="date-input"
@@ -2234,7 +2234,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                     />
                   </div>
                   <div className="date-input-group">
-                    <label className="date-label">おわりのひづけ</label>
+                    <label className="date-label">{getThemeText(theme, 'DATE_LABEL_END')}</label>
                     <input
                       type="date"
                       className="date-input"
@@ -2309,13 +2309,13 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                       setError(null);
                     }}
                   >
-                    営業時間をけいさん
+                    {getThemeText(theme, 'DATE_BUSINESS_HOURS_CALC')}
                   </button>
                 </div>
 
                 {/* カスタム営業日設定 */}
                 <div>
-                  <h4>カスタム営業日せってい</h4>
+                  <h4>{getThemeText(theme, 'DATE_BUSINESS_CUSTOM_TITLE')}</h4>
                   <div style={{ marginBottom: '1rem', padding: '0.75rem', background: 'rgba(255,255,255,0.1)', borderRadius: '0.5rem' }}>
                     <div style={{ marginBottom: '0.5rem', color: '#000' }}>営業日の曜日をせってい</div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' }}>
@@ -2383,7 +2383,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                   </div>
 
                   <div className="date-input-group">
-                    <label className="date-label">テストするひづけ</label>
+                    <label className="date-label">{getThemeText(theme, 'DATE_LABEL_TEST')}</label>
                     <input
                       type="date"
                       className="date-input"
@@ -2406,13 +2406,13 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                       setError(null);
                     }}
                   >
-                    テストする
+                    {getThemeText(theme, 'DATE_BUSINESS_TEST')}
                   </button>
 
                   {date1 && date2 && isValidDate(date1) && isValidDate(date2) && (
                     <>
                       <div className="date-input-group" style={{ marginTop: '1rem' }}>
-                        <label className="date-label">はじまりのひづけ</label>
+                        <label className="date-label">{getThemeText(theme, 'DATE_LABEL_START')}</label>
                         <input
                           type="date"
                           className="date-input"
@@ -2421,7 +2421,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                         />
                       </div>
                       <div className="date-input-group">
-                        <label className="date-label">おわりのひづけ</label>
+                        <label className="date-label">{getThemeText(theme, 'DATE_LABEL_END')}</label>
                         <input
                           type="date"
                           className="date-input"
@@ -2445,7 +2445,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                           setError(null);
                         }}
                       >
-                        カスタム営業日数をけいさん
+                        {getThemeText(theme, 'DATE_BUSINESS_CUSTOM_DAYS')}
                       </button>
                     </>
                   )}
@@ -2455,7 +2455,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                 <div>
                   <h4>たいむぞーんへんかん</h4>
                   <div className="date-input-group">
-                    <label className="date-label">ひづけ</label>
+                    <label className="date-label">{getThemeText(theme, 'DATE_LABEL')}</label>
                     <input
                       type="date"
                       className="date-input"
@@ -2514,7 +2514,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
 
                 {/* 計画・予測機能 */}
                 <div>
-                  <h4>けいかく・よそく</h4>
+                  <h4>{getThemeText(theme, 'DATE_PLAN_PREDICT_TITLE')}</h4>
                   <div className="date-input-group">
                     <label className="date-label">うまれたひ</label>
                     <input
@@ -2525,7 +2525,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                     />
                   </div>
                   <div className="date-input-group">
-                    <label className="date-label">ねんすうまたはねんれい</label>
+                    <label className="date-label">{getThemeText(theme, 'DATE_LABEL_YEARS_OR_AGE')}</label>
                     <input
                       type="number"
                       className="date-input"
@@ -2695,7 +2695,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
               <h3>📝 けいさんれきし</h3>
               <div className="date-input-section">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                  <h4>れきし</h4>
+                  <h4>{getThemeText(theme, 'DATE_HISTORY_TITLE')}</h4>
                   <button
                     className="date-calculate-btn"
                     onClick={() => {
@@ -2711,7 +2711,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                 {(() => {
                   const history = getCalculationHistory();
                   if (history.length === 0) {
-                    return <p style={{ textAlign: 'center', opacity: 0.7 }}>れきしはありません</p>;
+                    return <p style={{ textAlign: 'center', opacity: 0.7 }}>{getThemeText(theme, 'DATE_HISTORY_EMPTY')}</p>;
                   }
 
                   return (
@@ -2764,7 +2764,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
               <h3>⏰ {getThemeText(theme, 'DATE_COUNTDOWN')}</h3>
               <div className="date-input-section">
                 <div className="date-input-group">
-                  <label className="date-label">もくひょうのひづけ</label>
+                  <label className="date-label">{getThemeText(theme, 'DATE_LABEL_TARGET')}</label>
                   <input
                     type="date"
                     className="date-input"
@@ -2866,7 +2866,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
               <h3>📅 {getThemeText(theme, 'DATE_WEEKLY')}</h3>
               <div className="date-input-section">
                 <div className="date-input-group">
-                  <label className="date-label">ひづけ</label>
+                  <label className="date-label">{getThemeText(theme, 'DATE_LABEL')}</label>
                   <input
                     type="date"
                     className="date-input"
@@ -3512,7 +3512,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
           {/* Age Tab */}
           {zodiacTab === 'age' && (
             <div className="zodiac-age-calculator fade-in">
-              <h3>{theme === 'kids' ? 'ねんれいから干支をさがす' : '年齢から干支を探す'}</h3>
+              <h3>{getThemeText(theme, 'ZODIAC_AGE_SEARCH')}</h3>
               <div className="zodiac-input-group">
                 <label className="zodiac-label">ねんれい</label>
                 <input
@@ -3530,7 +3530,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
               </button>
 
               <div className="family-section">
-                <h3>{theme === 'kids' ? 'かぞくの干支リスト' : '家族の干支リスト'}</h3>
+                <h3>{getThemeText(theme, 'ZODIAC_FAMILY_LIST')}</h3>
                 <div className="add-member-form">
                   <input
                     type="text"
@@ -3565,7 +3565,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
           {/* Compatibility Tab */}
           {zodiacTab === 'compatibility' && (
             <div className="zodiac-compatibility fade-in">
-              <h3>{theme === 'kids' ? '干支のあいしょうチェック' : '干支の相性チェック'}</h3>
+              <h3>{getThemeText(theme, 'ZODIAC_COMPATIBILITY_CHECK')}</h3>
 
               <div className="compat-selector">
                 <div className="compat-group">
@@ -3606,7 +3606,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                 onClick={handleCompatibilityCheck}
                 disabled={!compatZodiac1 || !compatZodiac2}
               >
-                {theme === 'kids' ? 'あいしょうをチェック！' : '相性をチェック！'}
+                {getThemeText(theme, 'ZODIAC_COMPATIBILITY_CHECK_BUTTON')}
               </button>
 
               {compatZodiac1 && compatZodiac2 && (
@@ -4578,8 +4578,8 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                   }
                 })()}
               </div>
-            </div>
-          )}
+        </div>
+      )}
 
           {/* Monthly Fortune Tab - 月間・年間運勢 */}
           {fortuneTab === 'monthly' && (
@@ -4638,8 +4638,8 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                         <strong>ちゅういび：</strong>{monthly.cautionDays.slice(0, 5).map(d => formatDateJapanese(d)).join(', ') || 'なし'}
                       </div>
                     </div>
-                  </div>
-                );
+    </div>
+  );
               })() : (
                 <div className="fortune-placeholder">
                   <p>{getThemeText(theme, 'FORTUNE_DIAGNOSIS_DESC')}</p>
@@ -5522,7 +5522,7 @@ function CartCalculator({ onCreateBlock, theme = 'kids' }: { onCreateBlock: (for
                 </div>
               </div>
               <div>
-                <label style={{ display: 'block', marginBottom: '0.25rem' }}>{theme === 'kids' ? 'わりびきりつ (%)' : '割引率 (%)'}</label>
+                <label style={{ display: 'block', marginBottom: '0.25rem' }}>{getThemeText(theme, 'CART_DISCOUNT_RATE')}</label>
                 <input
                   type="number"
                   value={discountRate}

@@ -3,10 +3,11 @@
  * Free-form canvas for dragging and arranging C-Blocks
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   DndContext,
   DragEndEvent,
+  DragOverEvent,
   MouseSensor,
   TouchSensor,
   useSensor,
@@ -41,16 +42,17 @@ export function Canvas({
   const [selectedBlockIds, setSelectedBlockIds] = useState<Set<string>>(new Set());
 
   // タッチ操作とマウス操作の両方に対応したセンサー設定
+  // 反応を早くするため、activationConstraintを緩和
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
-      distance: 5, // 5px移動したらドラッグ開始（誤操作防止）
+      distance: 1, // 1px移動したらドラッグ開始（より早い反応）
     },
   });
 
   const touchSensor = useSensor(TouchSensor, {
     activationConstraint: {
-      delay: 100, // 100ms長押しでドラッグ開始
-      tolerance: 5, // 5pxの移動許容（スクロールとの区別）
+      delay: 50, // 50ms長押しでドラッグ開始（より早い反応）
+      tolerance: 3, // 3pxの移動許容（スクロールとの区別）
     },
   });
 
@@ -84,6 +86,31 @@ export function Canvas({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedBlockIds, blocks]);
 
+  // リアルタイムで位置を更新するためのハンドラー（requestAnimationFrameで最適化）
+  const rafIdRef = useRef<number | null>(null);
+  const handleDragOver = (event: DragOverEvent) => {
+    const { active, delta } = event;
+
+    if (active.data.current?.type === 'c-block') {
+      const block = active.data.current.block as CBlock;
+      const newX = block.positionX + delta.x;
+      const newY = block.positionY + delta.y;
+
+      // Clamp to canvas bounds (minimum 0)
+      const clampedX = Math.max(0, newX);
+      const clampedY = Math.max(0, newY);
+
+      // requestAnimationFrameでスムーズに更新（前のフレームをキャンセル）
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+      rafIdRef.current = requestAnimationFrame(() => {
+        onUpdateBlockPosition(block.blockId, clampedX, clampedY);
+        rafIdRef.current = null;
+      });
+    }
+  };
+
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, delta } = event;
 
@@ -96,6 +123,7 @@ export function Canvas({
       const clampedX = Math.max(0, newX);
       const clampedY = Math.max(0, newY);
 
+      // 最終位置を確定
       onUpdateBlockPosition(block.blockId, clampedX, clampedY);
     }
   };
@@ -128,8 +156,8 @@ export function Canvas({
 
     const count = selectedBlockIds.size;
     const message = count === 1
-      ? 'このマグネットをけしますか？'
-      : `${count}このマグネットをけしますか？`;
+      ? getThemeText(theme, 'CBLOCK_DELETE_CONFIRM')
+      : `${count}${getThemeText(theme, 'CBLOCK_DELETE_CONFIRM')}`;
 
     if (confirm(message)) {
       selectedBlockIds.forEach(id => onDeleteBlock(id));
@@ -263,7 +291,7 @@ export function Canvas({
         <button
           className="condense-btn"
           onClick={onCondenseAll}
-          title="ぜんぶのマグネットをまとめる"
+          title={getThemeText(theme, 'CANVAS_CONDENSE_TITLE')}
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             {/* 上から下 */}
@@ -326,12 +354,12 @@ export function Canvas({
             onClick={handleClearSelection}
             title="選択解除 (Esc)"
           >
-            ✕ とりけし
+            ✕ {getThemeText(theme, 'CANVAS_CANCEL')}
           </button>
         </div>
       )}
 
-      <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+      <DndContext sensors={sensors} onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
         <div className="canvas">
           {renderDependencyLines()}
 
@@ -369,13 +397,13 @@ export function Canvas({
               }}
             >
               <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>
-                {settings?.theme === 'business' ? '計算ノートへようこそ！' : 'けいさんノートへようこそ！'}
+                {getThemeText(theme, 'WELCOME_TITLE')}
               </h2>
               <p style={{ fontSize: '1rem' }}>
-                {settings?.theme === 'business' ? '左の電卓で、計算してみましょう' : 'ひだりのでんたくで、けいさんしてみよう'}
+                {getThemeText(theme, 'WELCOME_DESC1')}
               </p>
               <p style={{ fontSize: '0.875rem', marginTop: '0.5rem' }}>
-                {settings?.theme === 'business' ? '結果がマグネットになって、こちらに表示されます！' : 'けっかがマグネットになって、こっちにでてくるよ！'}
+                {getThemeText(theme, 'WELCOME_DESC2')}
               </p>
             </div>
           )}

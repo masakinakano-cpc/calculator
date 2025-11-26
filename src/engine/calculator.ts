@@ -89,7 +89,7 @@ function parseValue(expr: string, ctx: { pos: number }): Decimal {
   if (ctx.pos < expr.length && expr[ctx.pos] === '(') {
     ctx.pos++; // Skip '('
     const result = evaluateLeftToRight(expr, ctx);
-    
+
     if (ctx.pos < expr.length && expr[ctx.pos] === ')') {
       ctx.pos++; // Skip ')'
     } else {

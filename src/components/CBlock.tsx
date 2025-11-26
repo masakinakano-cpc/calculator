@@ -189,7 +189,7 @@ export function CBlockComponent({
                   fontWeight: 700,
                 }}
               >
-                ほぞん
+                {getThemeText(theme, 'CBLOCK_SAVE')}
               </button>
               <button
                 onClick={handleMemoCancel}
@@ -204,7 +204,7 @@ export function CBlockComponent({
                   fontWeight: 700,
                 }}
               >
-                キャンセル
+                {getThemeText(theme, 'CBLOCK_CANCEL')}
               </button>
             </div>
           </div>
@@ -219,9 +219,9 @@ export function CBlockComponent({
               cursor: 'text',
               minHeight: block.memoText ? 'auto' : '2rem',
             }}
-            title="クリックしてメモをかく"
+            title={getThemeText(theme, 'CBLOCK_MEMO_CLICK_TITLE')}
           >
-            {block.memoText || 'メモをかく...'}
+            {block.memoText || getThemeText(theme, 'CBLOCK_MEMO_CLICK')}
           </div>
         )}
       </div>
