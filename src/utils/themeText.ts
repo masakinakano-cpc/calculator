@@ -282,7 +282,7 @@ export const TEXT_MAPPING = {
         DATE_YEARS_BEFORE_CALC: 'ねんをけいさん',
         CANVAS_CANCEL: 'とりけし',
         CANVAS_CONDENSE_TITLE: 'ぜんぶのマグネットをまとめる',
-        
+
         // その他のハードコードテキスト
         DATE_WEEK_POSITION_CALC: 'しゅうのばしょをけいさん',
         ZODIAC_AGE_SEARCH: 'ねんれいから干支をさがす',
@@ -568,7 +568,7 @@ export const TEXT_MAPPING = {
         DATE_YEARS_BEFORE_CALC: '年を計算',
         CANVAS_CANCEL: '取り消し',
         CANVAS_CONDENSE_TITLE: 'すべてのマグネットをまとめる',
-        
+
         // その他のハードコードテキスト
         DATE_WEEK_POSITION_CALC: '週の場所を計算',
         ZODIAC_AGE_SEARCH: '年齢から干支を探す',

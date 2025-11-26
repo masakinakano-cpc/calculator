@@ -3,7 +3,7 @@
  * Free-form canvas for dragging and arranging C-Blocks
  */
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import {
   DndContext,
   DragEndEvent,
@@ -45,14 +45,14 @@ export function Canvas({
   // 反応を早くするため、activationConstraintを緩和
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
-      distance: 1, // 1px移動したらドラッグ開始（より早い反応）
+      distance: 0, // 0px移動したらドラッグ開始（即座に反応）
     },
   });
 
   const touchSensor = useSensor(TouchSensor, {
     activationConstraint: {
-      delay: 50, // 50ms長押しでドラッグ開始（より早い反応）
-      tolerance: 3, // 3pxの移動許容（スクロールとの区別）
+      delay: 0, // 0msでドラッグ開始（即座に反応）
+      tolerance: 5, // 5pxの移動許容（スクロールとの区別）
     },
   });
 
@@ -86,8 +86,7 @@ export function Canvas({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedBlockIds, blocks]);
 
-  // リアルタイムで位置を更新するためのハンドラー（requestAnimationFrameで最適化）
-  const rafIdRef = useRef<number | null>(null);
+  // リアルタイムで位置を更新するためのハンドラー（直接更新でスムーズに）
   const handleDragOver = (event: DragOverEvent) => {
     const { active, delta } = event;
 
@@ -100,14 +99,8 @@ export function Canvas({
       const clampedX = Math.max(0, newX);
       const clampedY = Math.max(0, newY);
 
-      // requestAnimationFrameでスムーズに更新（前のフレームをキャンセル）
-      if (rafIdRef.current !== null) {
-        cancelAnimationFrame(rafIdRef.current);
-      }
-      rafIdRef.current = requestAnimationFrame(() => {
-        onUpdateBlockPosition(block.blockId, clampedX, clampedY);
-        rafIdRef.current = null;
-      });
+      // 直接更新してリアルタイムに反応
+      onUpdateBlockPosition(block.blockId, clampedX, clampedY);
     }
   };
 

@@ -1420,7 +1420,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
 
                 {dateResult && (
                   <div className="date-result">
-                    <h4>けっか</h4>
+                    <h4>{getThemeText(theme, 'RESULT')}</h4>
                     <p>{dateResult}</p>
                   </div>
                 )}
@@ -1742,7 +1742,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
 
                 {dateResult && (
                   <div className="date-result">
-                    <h4>けっか</h4>
+                    <h4>{getThemeText(theme, 'RESULT')}</h4>
                     <p>{dateResult}</p>
                   </div>
                 )}
@@ -1820,7 +1820,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
 
                 {dateResult && (
                   <div className="date-result">
-                    <h4>けっか</h4>
+                    <h4>{getThemeText(theme, 'RESULT')}</h4>
                     <p>{dateResult}</p>
                   </div>
                 )}
@@ -1989,7 +1989,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                         )}
                       </div>
                       <div style={{ marginTop: '1rem', fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>
-                        <p>黄色: 今日 | 白: 営業日 | 赤: 休日 | 各日付に六曜を表示</p>
+                        <p>{getThemeText(theme, 'DATE_CALENDAR_LEGEND')}</p>
                       </div>
                     </div>
                   );
@@ -2016,13 +2016,13 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                     />
                   </div>
                   <div className="date-input-group">
-                    <label className="date-label">営業日すう</label>
+                    <label className="date-label">{getThemeText(theme, 'DATE_BUSINESS_DAYS')}</label>
                     <input
                       type="number"
                       className="date-input"
                       value={dateAmount}
                       onChange={(e) => setDateAmount(e.target.value)}
-                      placeholder="営業日数"
+                      placeholder={getThemeText(theme, 'DATE_BUSINESS_DAYS_PLACEHOLDER')}
                     />
                   </div>
                   <button
@@ -2083,7 +2083,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                       className="date-input"
                       value={dateAmount}
                       onChange={(e) => setDateAmount(e.target.value)}
-                      placeholder="何年前"
+                      placeholder={theme === 'kids' ? '何年前' : '何年前'}
                     />
                   </div>
                   <button
@@ -2139,14 +2139,14 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                     onClick={() => {
                       const dates = [date1, date2, date3].filter(d => d && isValidDate(d));
                       if (dates.length < 2) {
-                        setError('2つ以上のひづけをにゅうりょくしてね');
+                        setError(getThemeText(theme, 'ERROR_NAME_DATE_REQUIRED'));
                         return;
                       }
                       try {
                         const comparison = compareMultipleDates(dates);
                         const ageComparison = compareAges(dates);
                         const chartData = getAgeComparisonChartData(
-                          dates.map((date, idx) => ({ date, name: `ひづけ${idx + 1}` }))
+                          dates.map((date, idx) => ({ date, name: `${getThemeText(theme, 'DATE_LABEL')}${idx + 1}` }))
                         );
                         const maxAge = Math.max(...chartData.map(d => d.age.totalDays));
 
@@ -2163,7 +2163,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                           result += `${formatDateJapanese(diff.date1)} と ${formatDateJapanese(diff.date2)}: ${diff.days}にち\n`;
                         });
 
-                        const formula = `${dates.length}つのひづけをひかく`;
+                        const formula = `${dates.length}${getThemeText(theme, 'DATE_COMPARE_FORMULA')}`;
                         onCreateBlock(formula);
                         setDateResult(result);
 
@@ -2180,7 +2180,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
 
                             const colors = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#00f2fe'];
                             graphDiv.innerHTML = `
-                              <h5 style="color: #000; margin-bottom: 0.5rem;">ねんれいさグラフ</h5>
+                              <h5 style="color: #000; margin-bottom: 0.5rem;">{getThemeText(theme, 'DATE_AGE_CHART')}</h5>
                               <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                                 ${chartData.map((item, idx) => {
                               const percentage = (item.age.totalDays / maxAge) * 100;
@@ -2317,7 +2317,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                 <div>
                   <h4>{getThemeText(theme, 'DATE_BUSINESS_CUSTOM_TITLE')}</h4>
                   <div style={{ marginBottom: '1rem', padding: '0.75rem', background: 'rgba(255,255,255,0.1)', borderRadius: '0.5rem' }}>
-                    <div style={{ marginBottom: '0.5rem', color: '#000' }}>営業日の曜日をせってい</div>
+                    <div style={{ marginBottom: '0.5rem', color: '#000' }}>{getThemeText(theme, 'DATE_BUSINESS_CUSTOM_WEEKDAYS')}</div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' }}>
                       {[
                         { key: 'sunday', label: '日曜日' },
@@ -2349,7 +2349,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                   </div>
 
                   <div className="date-input-group">
-                    <label className="date-label">カスタム休日（カンマ区切り YYYY-MM-DD）</label>
+                    <label className="date-label">{getThemeText(theme, 'DATE_BUSINESS_CUSTOM_HOLIDAYS')}</label>
                     <input
                       type="text"
                       className="date-input"
@@ -2366,7 +2366,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                   </div>
 
                   <div className="date-input-group">
-                    <label className="date-label">カスタム営業日（祝日でも営業する日、カンマ区切り YYYY-MM-DD）</label>
+                    <label className="date-label">{getThemeText(theme, 'DATE_BUSINESS_CUSTOM_BUSINESS_DAYS')}</label>
                     <input
                       type="text"
                       className="date-input"
@@ -2550,7 +2550,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                         setError(null);
                       }}
                     >
-                      {dateAmount}さいになるひづけ
+                      {dateAmount}{getThemeText(theme, 'DATE_AGE_AT')}
                     </button>
                     <button
                       className="date-calculate-btn"
@@ -2567,14 +2567,14 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                         setError(null);
                       }}
                     >
-                      {dateAmount}にちごのねんれい
+                      {dateAmount}{getThemeText(theme, 'DATE_AGE_AFTER')}
                     </button>
                   </div>
                 </div>
 
                 {dateResult && (
                   <div className="date-result">
-                    <h4>けっか</h4>
+                    <h4>{getThemeText(theme, 'RESULT')}</h4>
                     <p>{dateResult}</p>
                   </div>
                 )}
@@ -2588,7 +2588,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
               <h3>📊 {getThemeText(theme, 'DATE_TIMELINE')}</h3>
               <div className="date-input-section">
                 <div className="date-input-group">
-                  <label className="date-label">はじまりのひづけ</label>
+                  <label className="date-label">{getThemeText(theme, 'DATE_LABEL_START')}</label>
                   <input
                     type="date"
                     className="date-input"
@@ -2597,7 +2597,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                   />
                 </div>
                 <div className="date-input-group">
-                  <label className="date-label">おわりのひづけ</label>
+                  <label className="date-label">{getThemeText(theme, 'DATE_LABEL_END')}</label>
                   <input
                     type="date"
                     className="date-input"
@@ -2660,7 +2660,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                         marginTop: '1rem',
                       }}>
                         <div style={{ textAlign: 'center' }}>
-                          <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>はじまり</div>
+                          <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>{theme === 'kids' ? 'はじまり' : '開始'}</div>
                           <div style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>{formatDateJapanese(date1)}</div>
                         </div>
                         <div style={{ flex: 1, margin: '0 1rem' }}>
@@ -2671,7 +2671,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                           }} />
                         </div>
                         <div style={{ textAlign: 'center' }}>
-                          <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>おわり</div>
+                          <div style={{ fontSize: '0.8rem', opacity: 0.8 }}>{theme === 'kids' ? 'おわり' : '終了'}</div>
                           <div style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>{formatDateJapanese(date2)}</div>
                         </div>
                       </div>
@@ -2692,7 +2692,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
           {/* History Tab - 計算履歴 */}
           {dateTab === 'history' && (
             <div className="date-tab-content fade-in">
-              <h3>📝 けいさんれきし</h3>
+              <h3>📝 {getThemeText(theme, 'DATE_HISTORY_TITLE')}</h3>
               <div className="date-input-section">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                   <h4>{getThemeText(theme, 'DATE_HISTORY_TITLE')}</h4>
@@ -2938,7 +2938,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
               <h3>📊 {getThemeText(theme, 'DATE_RANGE')}</h3>
               <div className="date-input-section">
                 <div className="date-input-group">
-                  <label className="date-label">はじまりのひづけ</label>
+                  <label className="date-label">{getThemeText(theme, 'DATE_LABEL_START')}</label>
                   <input
                     type="date"
                     className="date-input"
@@ -2947,7 +2947,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
                   />
                 </div>
                 <div className="date-input-group">
-                  <label className="date-label">おわりのひづけ</label>
+                  <label className="date-label">{getThemeText(theme, 'DATE_LABEL_END')}</label>
                   <input
                     type="date"
                     className="date-input"
@@ -2982,7 +2982,7 @@ export function Calculator({ mode, onCreateBlock, blockValues, theme = 'kids' }:
 
                 {dateResult && (
                   <div className="date-result">
-                    <h4>けっか</h4>
+                    <h4>{getThemeText(theme, 'RESULT')}</h4>
                     <pre style={{ whiteSpace: 'pre-wrap', color: '#000' }}>{dateResult}</pre>
                   </div>
                 )}
